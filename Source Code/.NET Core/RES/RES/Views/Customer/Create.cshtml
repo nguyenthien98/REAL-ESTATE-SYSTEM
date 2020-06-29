@@ -1,0 +1,68 @@
+﻿@model RES.Data.DBModels.Customer
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<!-- Page top section -->
+<section class="page-top-section set-bg" data-setbg="img/page-top-bg.jpg">
+    <div class="container text-white">
+        <h2>NHẬP THÔNG TIN</h2>
+    </div>
+</section>
+<!--  Page top end -->
+<!-- Breadcrumb -->
+<div class="site-breadcrumb">
+    <div class="container">
+        <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i>Home</a>
+        <span><i class="fa fa-angle-right"></i>Nhập thông tin người dùng</span>
+    </div>
+</div>
+
+<!-- Page -->
+<section class="page-section">
+    <div class="container">
+
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-lg-6 col-sm-12">
+                    <div class="form-group">
+                        <label asp-for="Firstname" class="control-label"></label>
+                        <input asp-for="Firstname" class="form-control" />
+                        <span asp-validation-for="Firstname" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LastName" class="control-label"></label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Address" class="control-label"></label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                    <div class="form-group">
+                        <label asp-for="PhoneNumber" class="control-label"></label>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="col col-md-3"><label for="file-input" class=" form-control-label">Ảnh đại diện</label></div>
+                        <div class="col-12 col-md-9"><input type="file" id="file-input" name="file" accept="image/*" class="form-control-file"></div>
+                    </div>
+                </div>
+                <div class="form-group m-auto">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<!-- Page end -->
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

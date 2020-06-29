@@ -1,0 +1,59 @@
+﻿@using RealEstateWebsite.Models;
+@model Post
+@{
+    ViewBag.Title = "ReadmorePartial";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+<div class="readmore3" style="background-color:ghostwhite; padding-top:5%; padding-bottom:5%">
+    <div class="container">
+        <div class="row" style="padding-top:5%; padding-bottom:5%;background-color:white">
+            @if (Model.RealEstateType.RealEstateType_ID == 1 || Model.RealEstateType.RealEstateType_ID == 3)
+            {
+                <div class="col-lg-8 col-md-8">
+                    <div class="row">
+                        <div class="feature-pic set-bg" data-setbg="@(Constants.POST_IMG_URL_USER.ToString() + Model.Post_Image.FirstOrDefault().url.ToString())"></div>
+                    </div>
+                    <div class="row" style="padding-left:9%">
+                        <h1 id="readmore2">@Model.Tittle</h1>
+                        <p id="readmore1">- Price: @string.Format("{0:0,0 VND}", Model.Price)</p>
+                        <p id="readmore1">- Location: @Model.Location</p>
+                        <p id="readmore1">- Description: @Model.Description</p>
+                        <p id="readmore1">- Time Post: @Model.PostTime</p>
+                        <p id="readmore1">- Floor: @Model.Detail.Floor</p>
+                        <p id="readmore1">- Bedroom: @Model.Detail.Bedroom</p>
+                        <p id="readmore1">- Bathroom: @Model.Detail.Bathroom</p>
+                        <p id="readmore1">- Direction: @Model.Detail.Direction.Direction_Name</p>
+                    </div>
+
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="feature-pic set-bg" data-setbg="@(Constants.POST_IMG_URL_CUSTOMER.ToString() + Model.Customer.Avatar_URL.ToString())"></div>
+                    <p id="readmore1"style="padding-top:5%">- Author: @(Model.Customer.LastName + Model.Customer.Firstname )</p>
+                    <p id="readmore1">- Email: @Model.Customer.Email</p>
+                    <p id="readmore1">- Phone: @Model.Customer.PhoneNumbers.FirstOrDefault().PhoneNumber1</p>
+                </div>
+            }
+            else
+            {
+                <div class="col-lg-8 col-md-8">
+                    <div class="row">
+                        <div class="feature-pic set-bg" data-setbg="@(Constants.POST_IMG_URL_USER.ToString() + Model.Post_Image.FirstOrDefault().url.ToString())"></div>
+                    </div>
+                    <div class="row" style="padding-left:9%">
+                        <h1 id="readmore2">@Model.Tittle</h1>
+                        <p id="readmore1">- Price: @string.Format("{0:0,0 VND}", Model.Price)</p>
+                        <p id="readmore1">- Location: @Model.Location</p>
+                        <p id="readmore1">- Description: @Model.Description</p>
+                        <p id="readmore1">- Time Post: @Model.PostTime</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="feature-pic set-bg" data-setbg="@(Constants.POST_IMG_URL_CUSTOMER.ToString() + Model.Customer.Avatar_URL.ToString())"></div>
+                    <p id="readmore1" style="padding-top:5%">- Author: @(Model.Customer.LastName+" "+Model.Customer.Firstname )</p>
+                    <p id="readmore1">- Email: @Model.Customer.Email</p>
+                    <p id="readmore1">- Phone: @Model.Customer.PhoneNumbers.FirstOrDefault().PhoneNumber1</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>

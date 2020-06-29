@@ -1,0 +1,125 @@
+﻿@using RES.Data.DBModels
+@using RES.Models.Common
+@model List<Post>
+@{
+    ViewData["Title"] = ViewBag.Title;
+    RealEstateSystemContext db = new RealEstateSystemContext();
+}
+
+<!-- Page top section -->
+<section class="page-top-section set-bg" data-setbg="img/page-top-bg.jpg">
+    <div class="container text-white">
+        <h2>KẾT QUẢ TÌM KIẾM</h2>
+    </div>
+</section>
+<!--  Page top end -->
+<!-- Breadcrumb -->
+<div class="site-breadcrumb">
+    <div class="container">
+        <a href=""><i class="fa fa-home"></i>Home</a>
+        <span><i class="fa fa-angle-right"></i>Featured Listings</span>
+    </div>
+</div>
+
+
+<!-- page -->
+<section class="page-section categories-page">
+    <div class="container">
+        <div class="row">
+            @foreach (Post post in Model)
+            {
+                List<PostImage> lstImage = db.PostImage.Where(n => n.PostId == post.PostId).ToList();
+                <div class="col-lg-4 col-md-6">
+                    <!-- feature -->
+                    <div class="feature-item">
+                        <a href="@Url.Action("PostDetail", "Post", new { postId = post.PostId })">
+                            <div class="feature-pic set-bg" data-setbg="@(Constants.POST_IMG_URL + lstImage[0].Url)">
+                                @if (post.PostType == 1)
+                                {
+                                    <div class="sale-notic">Cần bán</div>
+                                }
+                                else
+                                {
+                                    <div class="rent-notic">Cần cho thuê</div>
+                                }
+                            </div>
+                        </a>
+                        <div class="feature-text">
+                            <div class="text-center feature-title">
+                                <h5>@post.Tittle</h5>
+                                <p><i class="fa fa-map-marker"></i> @CommonFunction.getAddress(post.Location)</p>
+                            </div>
+                            <div class="room-info-warp">
+                                @if (post.Detail != null)
+                                {
+                                    <div class="room-info">
+                                        <div class="rf-left">
+                                            <p><i class="fa fa-th-large"></i> hướng @db.Direction.First(n => n.DirectionId == db.Detail.First(c => c.DetailId == post.Detail).DirectionId).DirectionName</p>
+                                            <p><i class="fa fa-bed"></i> @db.Detail.First(c => c.DetailId == post.Detail).Bedroom phòng ngủ</p>
+                                        </div>
+                                        <div class="rf-right">
+                                            <p><i class="fa fa-building-o"></i> @db.Detail.First(c => c.DetailId == post.Detail).Floor lầu</p>
+                                            <p><i class="fa fa-bath"></i> @db.Detail.First(c => c.DetailId == post.Detail).Bathroom phòng tắm</p>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="room-info">
+                                        <div class="rf-left">
+                                            <p><i class="fa fa-building-o"></i>@db.RealEstateType.First(n => n.RealEstateTypeId == post.RealEstaleType).Name</p>
+                                        </div>
+                                        <div class="rf-right mr-5">
+                                            <p><i class="fa fa-th-large"></i> @post.Area m&sup2;</p>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="room-info">
+                                    <div class="rf-left">
+                                        <p><i class="fa fa-user"></i>  @(db.Customer.First(c => c.CustomerId == post.AuthorId).LastName + " " + db.Customer.First(c => c.CustomerId == post.AuthorId).Firstname)</p>
+                                    </div>
+                                    <div class="rf-right">
+                                        <p><i class="fa fa-clock-o"></i> @CommonFunction.GetTimeOfPost(post.PostTime)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            @if (post.PostType == 1)
+                            {
+                                @Html.ActionLink(string.Format("{0:0,0 VND}", post.Price), "PostDetail", "Post", new { postId = post.PostId }, new { @class = "room-price" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink(string.Format("{0:0,0 VND}", post.Price) + " / tháng", "PostDetail", "Post", new { postId = post.PostId }, new { @class = "room-price" })
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="site-pagination">
+            @{
+                int pageCount = Convert.ToInt32(ViewBag.PageCount);
+                int page = Convert.ToInt32(ViewBag.Page);
+
+                for (int i = 1; i <= pageCount; i++)
+                {
+                    if (i == page)
+                    {
+                        <span>@i</span>
+                    }
+                    else
+                    {
+                        @Html.ActionLink(i.ToString(), "Index", "Post", null, null, null, new { page = i }, null)
+                    }
+                }
+
+                if (pageCount >= 2 && page < pageCount)
+                {
+                    <a href="@Url.Action("Index", "Post", new { page = page + 1 })"><i class="fa fa-angle-right"></i></a>
+                }
+            }
+        </div>
+    </div>
+</section>
+<!-- page end -->

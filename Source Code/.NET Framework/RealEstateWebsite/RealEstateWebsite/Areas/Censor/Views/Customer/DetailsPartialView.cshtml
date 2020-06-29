@@ -1,0 +1,121 @@
+﻿@model RealEstateWebsite.Models.Customer_Report
+
+<link href="~/Content/Censor/slideshow.css" rel="stylesheet" />
+<link href="~/Content/Censor/notifications/Lobibox.min.css" rel="stylesheet" />
+<link href="~/Content/Censor/notifications/notifications.css" rel="stylesheet" />
+
+
+<script src="~/Scripts/Censor/notifications/notification-active.js"></script>
+<script src="~/Scripts/Censor/notifications/Lobibox.js"></script>
+<script>
+    var blockURL = '/Censor/Customer/BlockCus_Report';
+    $("#btnBlockCus_Report").click(function () {
+        var $buttonClicked = $(this);
+        //if (confirm("Block this Customer ?")) {
+        var id = $buttonClicked.attr('data-id');
+        $.ajax({
+            type: "GET",
+            url: blockURL,
+            contentType: "application/html; charset=utf-8",
+            data: { "cus_report_id": id },
+            datatype: "html",
+            success: function (data) {
+                if (data == "1") {
+                    $("#reportcustomerTable").load(location.href + " #reportcustomerTable>*", "");
+                    $('#PrimaryModalalert').modal('hide');
+                    Lobibox.notify('success', {
+                        msg: 'Block CUSTOMER successed!'
+                    });
+                } else {
+                    Lobibox.notify('error', {
+                        msg: 'Block CUSTOMER failed! Please try again.'
+                    });
+                }
+            },
+            error: function () {
+                Lobibox.notify('error', {
+                    msg: 'Block CUSTOMER failed! Please try again.'
+                });
+            }
+        });
+        //}
+    });
+
+    var deleteReportkURL = '/Censor/Customer/DeleteReport';
+    $(document).on('click', '.btnDeleteReport', function () {
+        var $buttonClicked = $(this);
+        //if (confirm("Delete this Report ?")) {
+        var id = $buttonClicked.attr('data-id');
+        $.ajax({
+            type: "GET",
+            url: deleteReportkURL,
+            contentType: "application/html; charset=utf-8",
+            data: { "cus_report_id": id },
+            datatype: "html",
+            success: function (data) {
+                if (data == "1") {
+                    $("#reportcustomerTable").load(location.href + " #reportcustomerTable>*", "");
+                    $('#PrimaryModalalert').modal('hide');
+                    Lobibox.notify('success', {
+                        msg: 'Delete REPORT successed!'
+                    });
+                } else {
+                    Lobibox.notify('error', {
+                        msg: 'Delete REPORT failed! Please try again.'
+                    });
+                }
+            },
+            error: function () {
+                Lobibox.notify('error', {
+                    msg: 'Delete REPORT failed! Please try again.'
+                });
+            }
+        });
+        //}
+    });
+
+</script>
+<script src="~/Scripts/Censor/slideshow.js"></script>
+
+
+
+<div class="modal-close-area modal-close-df">
+    <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+</div>
+<div class="slideshow-container">
+    <div class="mySlides1">
+        <img src="~/Images/Customer/@Model.Customer.Avatar_URL">
+    </div>
+</div>
+<div class="sparkline8-list">
+    <table class="table">
+        <tbody>
+            <tr>
+                <td>Customer ID: </td>
+                <td>@Model.Customer.Customer_ID</td>
+            </tr>
+            <tr>
+                <td>Name: </td>
+                <td>@Model.Customer.LastName @Model.Customer.Firstname</td>
+            </tr>
+            <tr>
+                <td>Email: </td>
+                <td>@Model.Customer.Email</td>
+            </tr>
+            <tr>
+                <td>Address: </td>
+                <td>@Model.Customer.Address</td>
+            </tr>
+            <tr>
+                <td>Phone: </td>
+                <td>@Model.Customer.PhoneNumbers.LastOrDefault().PhoneNumber1</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">
+    <button type="button" id="btnBlockCus_Report" data-id="@Model.Customer_Report_ID" class="btn btn-custon-rounded-four btn-danger btnBlockCus_Report" data-toggle="modal">Block Customer</button>
+    <button type="button" class="btn btn-custon-rounded-four btn-primary btnDeleteReport" data-id="@Model.Customer_Report_ID" data-toggle="modal">Delete Report</button>
+    <button type="button" data-dismiss="modal" class="btn btn-custon-rounded-four btn-default">Cancel</button>
+</div>
+

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2e2865edee2d420badf30df7a3e8ab02" Name="Diagram1">
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.Account" Width="1.5" PointX="0.75" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.AccountLog" Width="1.5" PointX="3" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.Permission" Width="1.5" PointX="0.75" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.Permission_Role" Width="1.5" PointX="3" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.Role" Width="1.5" PointX="0.75" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.Role_Account" Width="1.5" PointX="3" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.Block" Width="1.5" PointX="8.25" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.Customer" Width="1.5" PointX="6" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.Customer_Report" Width="1.5" PointX="11.25" PointY="24" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.Interested_Post" Width="1.5" PointX="8.25" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.PhoneNumber" Width="1.5" PointX="8.25" PointY="27.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.Promotion" Width="1.5" PointX="8.25" PointY="29.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.Promotion_Detail" Width="1.5" PointX="13.5" PointY="24.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.Type" Width="1.5" PointX="3.75" PointY="22.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.DatabaseLog" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.ErrorLog" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.Block1" Width="1.5" PointX="5.25" PointY="27.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.Employee" Width="1.5" PointX="3" PointY="27.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.Quit" Width="1.5" PointX="5.25" PointY="30.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.Detail" Width="1.5" PointX="9" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.Direction" Width="1.5" PointX="6.75" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.Post" Width="1.5" PointX="11.25" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.Post_Image" Width="1.5" PointX="13.5" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.Post_Report" Width="1.5" PointX="16.5" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.Post_Status" Width="1.5" PointX="16.5" PointY="26.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.Project" Width="1.5" PointX="9" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.Project_Image" Width="1.5" PointX="11.25" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.RealEstateType" Width="1.5" PointX="9" PointY="33.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.Status" Width="1.5" PointX="14.25" PointY="28.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateWebsiteModel.Type1" Width="1.5" PointX="9" PointY="35.875" IsExpanded="true" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_AccountLog_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Customer_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Employee_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Role_Account_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Permission_Role_Permission" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Permission_Role_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Role_Account_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Block_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Block_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Customer_Report_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Customer_Report_Customer1" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Customer_Type" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Interested_Post_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_PhoneNumber_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Post_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Post_Report_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Promotion_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Customer_Report_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Interested_Post_Post" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Promotion_Detail_Promotion" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Promotion_Detail_Post" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Block_Employee1" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Employee_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Post_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Post_Report_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Post_Status_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Quit_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Detail_Direction" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Post_Detail" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Post_Image_Post" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Post_PostType" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Post_Project" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Post_RealEstaleType" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Post_Report_Post" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Post_Status_Post" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Post_Status_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="RealEstateWebsiteModel.FK_Project_Image_Project" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

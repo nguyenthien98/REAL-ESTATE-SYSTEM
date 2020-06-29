@@ -1,0 +1,49 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Http
+@using RES.Data.DBModels
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+
+
+<div class="user-panel dis-inline-flex">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        RealEstateSystemContext _context = new RealEstateSystemContext();
+        AspNetUsers user = _context.AspNetUsers.Where(n => n.Email == User.Identity.Name).SingleOrDefault();
+        Customer customer = _context.Customer.Where(n => n.AccountId == user.Id).SingleOrDefault();
+        if (customer == null)
+        {
+            Context.Session.SetString("User_Name_Session", "Guest");
+        }
+        else
+        {
+            Context.Session.SetString("User_Name_Session", customer.LastName + " " + customer.Firstname);
+        }
+
+    <div class="dropdown">
+        <a asp-area="Identity" class="username-title"><i class="fa fa-user-circle-o"></i> @Context.Session.GetString("User_Name_Session")</a>
+        <div class="dropdown-content" style="background-color: darkslategray; margin-left: 21px">
+            <form class="form-inline" action="/Identity/Account/Manage" style="margin: 10px;" method="get">
+                <button type="submit" class="btn-logout">Quản lý tài khoản</button>
+            </form>
+            <form class="form-inline" action="/post/manager" style="margin: 10px;" method="get">
+                <button type="submit" class="btn-logout">Quản lý bài đăng</button>
+            </form>
+            <form class="form-inline" action="/Identity/Account/Manage/ChangePassword" style="margin: 10px;" method="get">
+                <button type="submit" class="btn-logout">Đổi mật khẩu</button>
+            </form>
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" style="margin: 10px;">
+                <button type="submit" class="btn-logout">Đăng xuất</button>
+            </form>
+        </div>
+    </div>
+        
+    }
+    else
+    {
+        <a asp-area="Identity" asp-page="/Account/Register"><i class="fa fa-user-circle-o"></i> Đăng ký</a>
+        <a asp-area="Identity" asp-page="/Account/Login"><i class="fa fa-sign-in"></i> Đăng Nhập</a>
+    }
+</div>

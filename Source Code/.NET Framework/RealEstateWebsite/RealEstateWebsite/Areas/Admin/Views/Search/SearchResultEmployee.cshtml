@@ -1,0 +1,405 @@
+﻿@model IEnumerable<RealEstateWebsite.Models.Employee>
+
+@{
+    ViewBag.Title = "View Employee";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+    .modal-dialog {
+        margin-left: -300px;
+        margin-right: -1000px;
+        padding: 0;
+        z-index: 1050;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <h3 class="page-header">
+            <i class="fa fa-laptop"></i> Search Employees
+        </h3>
+        <ol class="breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/Admin/Home/Index">Home</a>
+            </li>
+            <li>
+                @Html.ActionLink("ViewEmployees", "ViewEmp", "Adminstrator")
+            </li>
+            <li>
+                <i class="fa fa-laptop"></i>SearchEmployees
+            </li>
+        </ol>
+
+    </div>
+</div>
+@if (ViewBag.ThongBaoSearch != null)
+{
+    <div class="col-lg-12">
+        <div class="alert alert-success fade in">@ViewBag.ThongBaoSearch</div>
+    </div>
+
+}
+else
+{<div class="col-lg-12">
+        <div class="alert alert-block alert-danger fade in">@ViewBag.ThongBaoSearchNotFound</div>
+    </div>
+}
+<table class="table table-striped table-advance table-hover">
+    <thead>
+        <tr>
+            <th><i class="icon_profile"></i>FullName</th>
+            <th>UserName</th>
+            <th><i class="icon_key_alt"></i>IDNumber</th>
+            <th><i class="icon_mobile"></i>PNumber</th>
+            <th><i class="icon_mail_alt"></i>Email</th>
+            <th><i class="icon_pin_alt"></i>Address</th>
+            <th>Blocks</th>
+            <th>Quits</th>
+            <th><i class="icon_cogs"></i>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Account.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IDNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @if (item.Employee_ID.ToString() != Session["ID_User"].ToString())
+                    {
+                        if (item.Quits.LastOrDefault() == null)
+                        {
+                            if (item.Block1.LastOrDefault() == null || (item.Block1.LastOrDefault() != null && (item.Block1.LastOrDefault().UnBlockDate == null || item.Block1.LastOrDefault().UnBlockDate <= DateTime.Now)))
+                            {
+
+                                string block = "b" + @item.Employee_ID.ToString();
+                                <button type="button" class="btn btn-custon-rounded-three btn-warning btn-xs" data-toggle="modal" data-target="#@block">Block</button>
+
+                            <!-- Modal -->
+
+                                <div class="modal fade" id="@block" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="center">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                @using (Html.BeginForm("BlockEmp", "Adminstrator", FormMethod.Post, htmlAttributes: new { enctype = "multipart/form-data", @class = "dropzone dropzone-custom needsclick add-professors dz-clickable", @id = "blockform", @novalidate = "novalidate" }))
+                                                {
+                                                    @Html.ValidationSummary(true, null, new { @class = "alert alert-block alert-danger fade in" })
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Block Employee</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+
+                                                        <div class="form-group">
+                                                            <span class="input-group-addon"><i class="icon_profile"></i></span>
+                                                            @Html.LabelFor(model => item.Employee_ID)<br />
+                                                            <input type="text" name="iDEmp" class="input-md form-control" value="@item.Employee_ID" readonly>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            Date unBlock:<br />
+                                                            <input type="date" name="dateUnBlock">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            Reason block<br />
+                                                            @Html.TextBox("reasonBlockEmp", null, htmlAttributes: new { @name = "reasonBlockEmp", @class = "form-control", @placeholder = "Reason Block", required = "required" })
+
+                                                        </div>
+
+                                                    </div>
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-success">Save changes</button>
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        </div>
+
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+                            else
+                            {
+
+
+
+
+                                string ublock = "ub" + item.Employee_ID.ToString();
+
+                                <button type="button" class="btn btn-custon-rounded-three btn-success btn-xs" data-toggle="modal" data-target="#@ublock">Unblock</button>
+
+                            <!-- Modal -->
+
+                                <div class="modal fade" id="@ublock" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="center">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                @using (Html.BeginForm("UnBlockEmp", "Adminstrator", FormMethod.Post, htmlAttributes: new { enctype = "multipart/form-data", @class = "dropzone dropzone-custom needsclick add-professors dz-clickable", @id = "unblockform", @novalidate = "novalidate" }))
+                                                {
+                                                    @Html.ValidationSummary(true, null, new { @class = "alert alert-block alert-danger fade in" })
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">UnBlock Employee</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <span class="input-group-addon"><i class="icon_profile"></i></span>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => item.Employee_ID)<br />
+                                                            <input type="text" name="iDEmp" class="input-md form-control" value="@item.Employee_ID" readonly>
+                                                        </div>
+
+
+                                                        <div class="form-group">
+                                                            <a>Are you sure unblock this employee?</a>
+                                                        </div>
+                                                    </div>
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-success">Ok</button>
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                        </div>
+
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+                        }
+                        else
+                        {  <p>Out</p>}
+                    }
+                </td>
+
+                <td>
+                    @if (item.Employee_ID.ToString() != Session["ID_User"].ToString())
+                    {
+                        if (item.Quits.LastOrDefault() == null)
+                        {
+                            string quit = "q" + @item.Employee_ID.ToString();
+                            <button type="button" class="btn btn-custon-rounded-three btn-danger btn-xs" data-toggle="modal" data-target="#@quit">Quit</button>
+
+                            <!-- Modal -->
+
+                            <div class="modal fade" id="@quit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="center">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            @using (Html.BeginForm("QuitEmp", "Adminstrator", FormMethod.Post, htmlAttributes: new { enctype = "multipart/form-data", @class = "dropzone dropzone-custom needsclick add-professors dz-clickable", @id = "demo1-upload", @novalidate = "novalidate" }))
+                                            {
+                                                @Html.ValidationSummary(true, null, new { @class = "alert alert-block alert-danger fade in" })
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Quit Employee</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <span class="input-group-addon"><i class="icon_profile"></i></span>
+
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => item.Employee_ID)<br />
+                                                        <input type="text" name="iDEmp" class="input-md form-control" value="@item.Employee_ID" readonly>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        Reason quit<br />
+                                                        @Html.TextBox("reasonBlockEmp", null, htmlAttributes: new { @name = "reasonQuitEmp", @class = "form-control", @placeholder = "Reason Quit" })
+                                                    </div>
+
+                                                </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" name="btnSubmit" id="btnSubmit" class="btn btn-success">Save changes</button>
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    </div>
+
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+                        else
+                        {
+                            <p>Out</p>
+
+                        }
+                    }
+
+                </td>
+
+                <td>
+                    @{
+                        if (item.Quits.LastOrDefault() == null)
+                        {
+
+                            <form action="@Url.Action("EditEmp", "Adminstrator", new { idemp = item.Employee_ID })" method="post">
+                                <input type="submit" value="Edit" class="btn btn-custon-rounded-three btn-primary btn-xs">
+                            </form>
+                        }
+                    }
+                </td>
+                <td>
+                    @{
+
+                        string detail = "d" + @item.Employee_ID.ToString();
+                        <button type="button" class="btn btn-custon-rounded-three btn-xs" data-toggle="modal" data-target="#@detail">Details</button>
+
+                    <!-- Modal -->
+
+                        <div class="modal fade" id="@detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="center">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        @using (Html.BeginForm())
+                                        {
+                                            @Html.ValidationSummary(true, null, new { @class = "alert alert-block alert-danger fade in" })
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="exampleModalLabel">Details Employee</h4>
+                                                <button type="button" class="btn btn-custon-rounded-three btn-xs close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="false">&times;</span>
+                                                </button>
+                                            </div>
+
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <div class="col-lg-12">
+                                                            @Html.LabelFor(modelItem => item.Employee_ID)
+                                                            @Html.EditorFor(modelItem => item.Employee_ID, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-lg-12">
+                                                            @Html.LabelFor(modelItem => item.FullName)
+                                                            @Html.EditorFor(modelItem => item.FullName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-lg-12">
+                                                            @Html.LabelFor(modelItem => item.IDNumber)
+                                                            @Html.EditorFor(modelItem => item.IDNumber, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-lg-12">
+                                                            @Html.LabelFor(modelItem => item.Account.Role_Account.SingleOrDefault().Role.Role_Name, "Role")
+                                                            @Html.EditorFor(modelItem => item.Account.Role_Account.SingleOrDefault().Role.Role_Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-lg-12">
+                                                            @Html.LabelFor(modelItem => item.PhoneNumber)
+                                                            @Html.EditorFor(modelItem => item.PhoneNumber, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-lg-12">
+                                                            @Html.LabelFor(modelItem => item.Email)
+                                                            @Html.EditorFor(modelItem => item.Email, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-lg-12">
+                                                            @Html.LabelFor(modelItem => item.Address)
+                                                            @Html.EditorFor(modelItem => item.Address, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-lg-12">
+                                                            @Html.LabelFor(modelItem => item.Avatar_URL)
+                                                            @Html.EditorFor(modelItem => item.Avatar_URL, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-lg-12">
+                                                            @Html.LabelFor(modelItem => item.Employee2.Employee_ID, "Manager_ID")
+                                                            @Html.EditorFor(modelItem => item.Employee2.Employee_ID, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-lg-12">
+                                                            @Html.LabelFor(modelItem => item.Account.Account_ID)
+                                                            @Html.EditorFor(modelItem => item.Account.Account_ID, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-lg-12">
+                                                            @Html.Label("Status")
+                                                            @if (item.Quits.LastOrDefault() != null)
+                                                            {
+                                                                <a>Quit</a><br />
+                                                                    @Html.Label("Reason")
+                                                                    @Html.EditorFor(modelItem => item.Quits.LastOrDefault().Reason, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                            }
+                                                            else if ((item.Block1.LastOrDefault() != null && (item.Block1.LastOrDefault().UnBlockDate > DateTime.Now)))
+                                                            {
+                                                                <a>Block</a><br />
+                                                                    @Html.Label("Reason")
+                                                                    @Html.EditorFor(modelItem => item.Block1.LastOrDefault().Reason, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                            }
+                                                            else
+                                                            {
+                                                                <a>Working</a>
+                                                            }
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                    </div>
+                                                </div>
+
+                                        }
+                                        <div class="modal-footer">
+                                            @if (item.Quits.LastOrDefault() == null)
+                                            {
+                                                <div class="col-lg-12">
+                                                    <form action="@Url.Action("EditEmp", "Adminstrator",new  { @idemp = item.Employee_ID })" method="post">
+                                                        <div class="modal-footer">
+                                                            @*<input type="submit" value="Edit" class="btn btn-custon-rounded-three btn-primary btn-xs">*@
+                                                            <button type="submit" value="Edit" class="btn btn-success">Edit</button>
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="col-lg-12">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            }
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </td>
+            </tr>
+
+                        }
+    </tbody>
+</table>

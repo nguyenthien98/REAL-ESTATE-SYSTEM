@@ -1,0 +1,82 @@
+﻿@using RES.Data.DBModels
+@model List<Post>
+
+@{
+    ViewData["Title"] = "Tất cả bài đăng | Admin BDS Miền Trung";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    RealEstateSystemContext _context = new RealEstateSystemContext();
+
+    var notice = TempData["Notice"];
+
+    if (notice != null)
+    {
+        ViewData["Notice"] = notice;
+    }
+}
+
+<div class="animated fadeIn">
+    <div class="row">
+
+        <div class="col-md-12">
+            <partial name="~/Areas/Identity/Pages/Account/Manage/_StatusMessage.cshtml" model="@(ViewData["Notice"] == null ? null : ViewData["Notice"].ToString())" />
+            <div class="card">
+                <div class="card-header">
+                    <strong class="card-title">Quản lý bài đăng</strong>
+                </div>
+                <div class="card-body">
+                    <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Trạng thái</th>
+                                <th>Tiêu đề</th>
+                                <th>Loại bài đăng</th>
+                                <th>Tác giả</th>
+                                <th>Thời gian đăng</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var post in Model)
+                            {
+                                <tr>
+                                    @{DateTime posttime = post.PostTime ?? DateTime.Now;
+                                        string status = _context.Status.Find(post.Status).StatusType;
+                                        if (post.Status == 1)
+                                        {
+                                            <td class="text-blue">@status</td>
+                                        }
+                                        else if (post.Status == 2)
+                                        {
+                                            <td class="text-green">@status</td>
+                                        }
+                                        else
+                                        {
+                                            <td class="text-red">@status</td>
+                                        }
+                                    }
+                                    <td>@post.Tittle</td>
+                                    <td>@(post.PostTypeNavigation.Name + " " + post.RealEstaleTypeNavigation.Name)</td>
+                                    <td>@(post.Author.LastName + " " + post.Author.Firstname)</td>
+                                    <td>@(posttime.ToString("dd/MM/yyyy hh:mm tt"))</td>
+                                    <td style="display: inline-flex">
+                                        <form action="/@post.PostId" target="_blank" style="margin-right: 3px">
+                                            <input type="submit" class="btn-info" value="Xem" />
+                                        </form>
+                                        @if (post.Status == 1 || post.Status == 2)
+                                        {
+                                            <form asp-action="Delete" asp-controller="Post" asp-route-id="@post.PostId" asp-route-returnUrl="~/admin/search"
+                                                  onsubmit="return confirm('Bạn có chắc chắn muốn ẩn bài đăng này?');" style="margin-right: 3px">
+                                                <input type="submit" class="btn-danger" value="Ẩn" />
+                                            </form>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

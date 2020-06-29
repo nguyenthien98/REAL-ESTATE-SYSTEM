@@ -1,0 +1,222 @@
+﻿@using RES.Data.DBModels
+@using Microsoft.EntityFrameworkCore
+
+@{
+    RealEstateSystemContext _context = new RealEstateSystemContext();
+    Information info = _context.Information.First();
+    List<Menu> lstMenu = _context.Menu.Include(n => n.SubMenu).ToList();
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta charset="UTF-8">
+    <meta name="description" content="LERAMIZ Landing Page Template">
+    <meta name="keywords" content="LERAMIZ, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>@ViewData["Title"] - RES</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
+    </environment>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <!-- Favicon -->
+    <link href="~/img/favicon.ico" rel="shortcut icon" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/css/animate.css" />
+    <link rel="stylesheet" href="~/css/owl.carousel.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+</head>
+<body>
+    <!-- Facebook Like/Share/Comment -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v3.3&appId=2683737325000985&autoLogAppEvents=1"></script>
+
+
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header section -->
+    <header class="header-section">
+        <div class="header-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 header-top-left">
+                        <div class="top-info">
+                            <i class="fa fa-phone"></i>
+                            @info.PhoneNumber
+                        </div>
+                        <div class="top-info">
+                            <i class="fa fa-envelope"></i>
+                            @info.Email
+                        </div>
+                    </div>
+                    <div class="col-lg-6 text-lg-right header-top-right">
+                        <div class="top-social">
+                            <a class="socialbutton" data-id="fb" href="@info.Facebook"><i class="fa fa-facebook"></i></a>
+                            <a class="socialbutton" data-id="twi" href="@info.Twitter"><i class="fa fa-twitter"></i></a>
+                            <a class="socialbutton" data-id="ins" href="@info.Instagram"><i class="fa fa-instagram"></i></a>
+                            <a class="socialbutton" data-id="pin" href="@info.Pinterest"><i class="fa fa-pinterest"></i></a>
+                            <a class="socialbutton" data-id="lin" href="@info.Linkedin"><i class="fa fa-linkedin"></i></a>
+                        </div>
+                        <partial name="_LoginPartial" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="site-navbar">
+                        <a asp-controller="Home" asp-action="Index" class="site-logo"><img src="~/img/logo.png" alt=""></a>
+                        <div class="nav-switch">
+                            <i class="fa fa-bars"></i>
+                        </div>
+                        <ul class="main-menu">
+
+                            @foreach (var item in lstMenu)
+                            {
+                                if (item.SubMenu.Count() == 0)
+                                {
+                                    <li><a href="@item.Action">@item.Title</a></li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <div class="dropdown">
+                                            <button class="dropbtn">@item.Title</button>
+                                            <div class="dropdown-content">
+                                                @foreach (var submenu in item.SubMenu)
+                                                {
+                                                    <a class="dropdown-a" href="@(item.Action + submenu.Action)">@submenu.Title</a>
+                                                }
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                            <li><a asp-action="Create" asp-controller="Post" class="site-btn create-post-btn">Đăng tin</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Header section end -->
+    @*<partial name="_CookieConsentPartial" />*@
+
+    @RenderBody()
+
+    <!-- Footer section -->
+    <footer class="footer-section set-bg" data-setbg="../../../img/footer-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 footer-widget">
+                    <img src="~/img/logo.png" alt="">
+                    <p>
+                        Tìm kiếm bất động sản, nhà ở, căn hộ, đất và nhiều hơn nữa trên BDS Miền Trung.
+                        Chọn cho bạn ngôi nhà tương lai tại kho dữ liệu phong phú.
+                    </p>
+                    <div class="social">
+                        <a class="socialbutton" data-id="fb" href="@info.Facebook"><i class="fa fa-facebook"></i></a>
+                        <a class="socialbutton" data-id="twi" href="@info.Twitter"><i class="fa fa-twitter"></i></a>
+                        <a class="socialbutton" data-id="ins" href="@info.Instagram"><i class="fa fa-instagram"></i></a>
+                        <a class="socialbutton" data-id="pin" href="@info.Pinterest"><i class="fa fa-pinterest"></i></a>
+                        <a class="socialbutton" data-id="lin" href="@info.Linkedin"><i class="fa fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 footer-widget">
+                    <div class="contact-widget">
+                        <h5 class="fw-title">LIÊN HỆ</h5>
+                        <p><i class="fa fa-map-marker"></i>@info.Address </p>
+                        <p><i class="fa fa-phone"></i>@info.PhoneNumber</p>
+                        <p><i class="fa fa-envelope"></i>@info.Email</p>
+                        <p><i class="fa fa-clock-o"></i>@info.WorkingTime</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6  footer-widget">
+                    <div class="newslatter-widget">
+                        <h5 class="fw-title">ĐĂNG KÝ NHẬN TIN MỚI</h5>
+                        <p>Gửi mail cho chúng tôi để cập nhật những tin đăng mới nhất</p>
+                        <form class="footer-newslatter-form">
+                            <input type="text" placeholder="Email address">
+                            <button><i class="fa fa-send"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row footer-bottom">
+                <div class="copyright m-auto">
+                    <p>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;
+                        <script>document.write(new Date().getFullYear());</script> All rights reserved | This template
+                        is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="@info.Facebook" target="_blank">Hậu Bùi</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
+        </script>
+    </environment>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!--====== Javascripts & Jquery ======-->
+    <script src="~/js/jquery-3.2.1.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/masonry.pkgd.min.js"></script>
+    <script src="~/js/magnific-popup.min.js"></script>
+    <script src="~/js/main.js"></script>
+    <script>
+        $('.socialbutton').on("click", function () {
+            var input = $(this).attr("data-id");
+            $.ajax({
+                url: "/dashboard?id=" + input,
+                method: "get",
+                success: function (result) {
+                },
+                error: function (result) {
+                }
+            });
+        });
+    </script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

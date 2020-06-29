@@ -1,0 +1,54 @@
+﻿@model RES.Data.DBModels.Admin
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    var notice = TempData["Notice"];
+
+    if (notice != null)
+    {
+        ViewData["Notice"] = notice;
+    }
+}
+
+<div class="col-lg-12">
+    <partial name="~/Areas/Identity/Pages/Account/Manage/_StatusMessage.cshtml" model="@(ViewData["Notice"] == null ? null : ViewData["Notice"].ToString())" />
+    <div class="card">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="card-header">
+                <strong>Chỉnh sửa </strong> mới
+            </div>
+            <div class="card-body card-block">
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label for="text-input" class=" form-control-label">Tài khoản</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input asp-for="UserName" class="form-control" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label for="text-input" class=" form-control-label">Mật khẩu</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input asp-for="PasswordHash" type="password" class="form-control" />
+                        <span asp-validation-for="PasswordHash" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary btn-sm">
+                    <i class="fa fa-dot-circle-o"></i> Tạo
+                </button>
+                <a asp-action="Index" class="btn btn-danger btn-sm">
+                    <i class="fa fa-ban"></i> Quay lại
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+

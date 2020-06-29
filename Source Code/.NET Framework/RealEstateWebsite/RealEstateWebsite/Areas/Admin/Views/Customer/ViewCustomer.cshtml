@@ -1,0 +1,367 @@
+﻿@using RealEstateWebsite.Models
+@using PagedList.Mvc
+@model PagedList.IPagedList<Customer>
+@{
+    ViewBag.Title = "All Customers | Real Estate System";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+    .modal-dialog {
+        margin-left: -300px;
+        margin-right: -1000px;
+        padding: 0;
+        z-index: 1050;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <h3 class="page-header">
+            <i class="fa fa-laptop"></i> Dashboard
+        </h3>
+        <ol class="breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/Admin/Home/Index">Home</a>
+            </li>
+            <li>
+                <i class="fa fa-laptop"></i>View Customers
+            </li>
+        </ol>
+
+        <form class="navbar-form" action="@Url.Action("SearchResultCustomer", "Search")">
+            <input class="form-control" placeholder="Search" type="text" name="key" id="searchcust">
+        </form>
+
+    </div>
+</div>
+
+<table class="table table-striped table-advance table-hover">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th><i class="icon_key_alt"></i> ID</th>
+            <th><i class="icon_profile"></i> Name</th>
+            <th>Account</th>
+            <th><i class="icon_mail_alt"></i> Email</th>
+            <th><i class="icon_mobile"></i> Phone Number</th>
+            <th>Block Status</th>
+            <th><i class="icon_cogs"></i> Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>@(i + 1)</td>
+                    <td>@Model[i].Customer_ID</td>
+                    <td>@Model[i].LastName @Model[i].Firstname</td>
+                    <td>@Model[i].Account.UserName</td>
+                    <td>@Model[i].Email</td>
+                    <td>@(Model[i].PhoneNumbers.FirstOrDefault().PhoneNumber1)</td>
+                    <td>
+                        @{if (Model[i].Blocks.LastOrDefault() != null)
+                            {
+                                if ((Model[i].Blocks.LastOrDefault().Block_ID != 0) && (Model[i].Blocks.LastOrDefault().UnBlockDate > DateTime.Now))
+                                {
+                                    <span class="text-danger">Blocked</span>
+                                }
+                                else
+                                {
+                                    <span class="text-success">Active</span>
+                                }
+
+                            }
+                            else
+                            {
+                                <span class="text-success">Active</span>
+                            }
+                        }
+                    </td>
+                    <td>
+                       
+                        <div class="modal-area-button">
+                           @{
+                               if (Model[i].Blocks.LastOrDefault() != null)
+                               {
+                                   if ((Model[i].Blocks.LastOrDefault().Block_ID != 0) && (Model[i].Blocks.LastOrDefault().UnBlockDate > DateTime.Now))
+                                   {
+                                       string ublock = "ub" + Model[i].Customer_ID.ToString();
+
+                                        <button type="button" class="btn btn-custon-rounded-three btn-success btn-xs" data-toggle="modal" data-target="#@ublock">Unblock</button>
+
+                            <!-- Modal -->
+
+                                            <div class="modal fade" id="@ublock" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="center">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            @using (Html.BeginForm("UnBlockCust", "Customer", FormMethod.Post, htmlAttributes: new { enctype = "multipart/form-data", @class = "dropzone dropzone-custom needsclick add-professors dz-clickable", @id = "unblockform", @novalidate = "novalidate" }))
+                                                            {
+                                                                @Html.ValidationSummary(true, null, new { @class = "alert alert-block alert-danger fade in" })
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Unblock Customer</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <span class="input-group-addon"><i class="icon_profile"></i></span>
+                                                                    <div class="form-group">
+                                                                        @Html.LabelFor(model => Model[i].Customer_ID)<br />
+                                                                        <input type="text" name="idCust" class="input-md form-control" value="@Model[i].Customer_ID" readonly>
+                                                                    </div>
+
+
+                                                                    <div class="form-group">
+                                                                        <a>Are you sure unblock this customer?</a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="submit" class="btn btn-success">Ok</button>
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                                </div>
+
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    }
+                                    else
+                                    {
+                                        string block = "b" + Model[i].Customer_ID.ToString();
+                                        <button type="button" class="btn btn-custon-rounded-three btn-danger btn-xs" data-toggle="modal" data-target="#@block">Block</button>
+
+                            <!-- Modal -->
+
+                                            <div class="modal fade" id="@block" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="center">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            @using (Html.BeginForm("BlockCust", "Customer", FormMethod.Post, htmlAttributes: new { enctype = "multipart/form-data", @class = "dropzone dropzone-custom needsclick add-professors dz-clickable", @id = "blockform", @novalidate = "novalidate" }))
+                                                            {
+                                                                @Html.ValidationSummary(true, null, new { @class = "alert alert-block alert-danger fade in" })
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Block Customer</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+
+                                                                    <div class="form-group">
+                                                                        <span class="input-group-addon"><i class="icon_profile"></i></span>
+                                                                        @Html.LabelFor(model => Model[i].Customer_ID)<br />
+                                                                        <input type="text" name="idCust" class="input-md form-control" value="@Model[i].Customer_ID" readonly>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        Date unBlock:<br />
+                                                                        <input type="date" name="dateUnBlock">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        Reason block<br />
+                                                                        @Html.TextBox("Reason", null, htmlAttributes: new { @name = "Reason", @class = "form-control", @placeholder = "Reason Block", required = "required" })
+
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="submit" class="btn btn-success">Save changes</button>
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                </div>
+
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    }
+                                }
+                                else
+                                {
+                                    string block = "b" + Model[i].Customer_ID.ToString();
+                                    <button type="button" class="btn btn-custon-rounded-three btn-danger btn-xs" data-toggle="modal" data-target="#@block">Block</button>
+
+                            <!-- Modal -->
+
+                                        <div class="modal fade" id="@block" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="center">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        @using (Html.BeginForm("BlockCust", "Customer", FormMethod.Post, htmlAttributes: new { enctype = "multipart/form-data", @class = "dropzone dropzone-custom needsclick add-professors dz-clickable", @id = "blockform", @novalidate = "novalidate" }))
+                                                        {
+                                                            @Html.ValidationSummary(true, null, new { @class = "alert alert-block alert-danger fade in" })
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Block Customer</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+
+                                                                <div class="form-group">
+                                                                    <span class="input-group-addon"><i class="icon_profile"></i></span>
+                                                                    @Html.LabelFor(model => Model[i].Customer_ID)<br />
+                                                                    <input type="text" name="idCust" class="input-md form-control" value="@Model[i].Customer_ID" readonly>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    Date unBlock:<br />
+                                                                    <input type="date" name="dateUnBlock">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    Reason block<br />
+                                                                    @Html.TextBox("Reason", null, htmlAttributes: new { @name = "Reason", @class = "form-control", @placeholder = "Reason Block", required = "required" })
+
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="submit" class="btn btn-success">Save changes</button>
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            </div>
+
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                }
+                            }
+
+                            @{
+                                string detail = "d" + @Model[i].Customer_ID.ToString();
+                                <button type="button" class="btn btn-custon-rounded-three btn-xs" data-toggle="modal" data-target="#@detail">Details</button>
+
+                    <!-- Modal -->
+
+                                    <div class="modal fade" id="@detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="center">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    @using (Html.BeginForm())
+                                                    {
+                                                        @Html.ValidationSummary(true, null, new { @class = "alert alert-block alert-danger fade in" })
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title" id="exampleModalLabel">Details Customer</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="false">&times;</span>
+                                                            </button>
+                                                        </div>
+
+
+                                                        <div class="col-lg-12">
+                                                            <div class="form-group">
+                                                                <div class="col-lg-12">
+                                                                    @Html.LabelFor(modelItem => Model[i].Customer_ID)
+                                                                    @Html.EditorFor(modelItem => Model[i].Customer_ID, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-lg-12">
+                                                                    @Html.LabelFor(modelItem => Model[i].Firstname)
+                                                                    @Html.EditorFor(modelItem => Model[i].Firstname, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-lg-12">
+                                                                    @Html.LabelFor(modelItem => Model[i].LastName)
+                                                                    @Html.EditorFor(modelItem => Model[i].LastName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-lg-12">
+                                                                    @Html.LabelFor(modelItem => Model[i].Email)
+                                                                    @Html.EditorFor(modelItem => Model[i].Email, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-lg-12">
+                                                                    @Html.LabelFor(modelItem => Model[i].PhoneNumbers)
+                                                                    @Html.EditorFor(modelItem => Model[i].PhoneNumbers.FirstOrDefault().PhoneNumber1, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-lg-12">
+                                                                    @Html.LabelFor(modelItem => Model[i].Address)
+                                                                    @Html.EditorFor(modelItem => Model[i].Address, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-lg-12">
+                                                                    @Html.LabelFor(modelItem => Model[i].Avatar_URL)
+                                                                    @Html.EditorFor(modelItem => Model[i].Avatar_URL, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-lg-12">
+                                                                    @Html.LabelFor(modelItem => Model[i].ModifiedDate)
+                                                                    @Html.EditorFor(modelItem => Model[i].ModifiedDate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-lg-12">
+                                                                    @Html.LabelFor(modelItem => Model[i].Type)
+                                                                    @Html.EditorFor(modelItem => Model[i].Type.Type_Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <div class="col-lg-12">
+                                                                    @Html.Label("Status")
+                                                                    @{
+                                                                        if (Model[i].Blocks.LastOrDefault() != null)
+                                                                        {
+                                                                            if ((Model[i].Blocks.LastOrDefault().Block_ID != 0) && (Model[i].Blocks.LastOrDefault().UnBlockDate > DateTime.Now))
+                                                                            {
+                                                                                <a>Blocked</a><br />
+                                                                                @Html.Label("By Employee")
+                                                                                @Html.EditorFor(modelItem => Model[i].Blocks.LastOrDefault().Employee.FullName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                                                @Html.Label("Reason")
+                                                                                @Html.EditorFor(modelItem => Model[i].Blocks.LastOrDefault().Reason, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <a>Active</a>
+                                                                            }
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <a>Active</a>
+                                                                        }
+                                                                    }
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+
+                                                                        }
+                                                    <div class="modal-footer">
+                                                        <div class="modal-area-button">
+                                                            <form action="@Url.Action("EditCustomer", "Customer", new { @customer_id = Model[i].Customer_ID })" method="post">
+                                                                <input type="submit" value="Edit" class="btn btn-custon-rounded-three btn-primary btn-xs">
+                                                                <button type="button" class="btn btn-custon-rounded-three btn-xs" data-dismiss="modal">Close</button>
+                                                            </form>
+                                                        </div>
+
+                                                    </div>
+                                                  
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                            }
+                            @*</form>*@
+                        </div>
+                    </td>
+                </tr>
+                                                                        }
+        }
+    </tbody>
+</table>
+
+<div align="center">@Html.PagedListPager(Model, page => Url.Action("Viewcustomer", new { page = page }));</div>
+

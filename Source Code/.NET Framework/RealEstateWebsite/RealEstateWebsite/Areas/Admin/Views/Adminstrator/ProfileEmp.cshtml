@@ -1,0 +1,91 @@
+﻿@model RealEstateWebsite.Models.Employee
+
+@{
+    ViewBag.Title = "ProfileEmp";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ProfileEmp Employee</h2>
+
+<div>
+    <div class="col-sm-10 form-group-md">
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.LabelFor(model => model.Employee_ID)
+                @Html.EditorFor(model => model.Employee_ID, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-10">
+                @Html.LabelFor(model => model.FullName)
+                @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            </div>
+
+        </div>
+        <div class="form-group">
+            <div class="col-lg-10">
+                @Html.LabelFor(model => model.Account.Account_ID)
+                @Html.EditorFor(model => model.Account.Account_ID, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-10">
+                @Html.LabelFor(model => model.Account.UserName)
+                @Html.EditorFor(model => model.Account.UserName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-10">
+                @Html.LabelFor(model => model.IDNumber)
+                @Html.EditorFor(model => model.IDNumber, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-10">
+
+                @Html.LabelFor(model => model.Account.Role_Account.SingleOrDefault().Role.Role_Name, "Role")
+                @Html.EditorFor(model => model.Account.Role_Account.SingleOrDefault().Role.Role_Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-10">
+                @Html.LabelFor(model => model.PhoneNumber)
+                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-10">
+                @Html.LabelFor(model => model.Email)
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-10">
+                @Html.LabelFor(model => model.Address)
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-10">
+                @Html.LabelFor(model => model.Avatar_URL)
+                @Html.EditorFor(model => model.Avatar_URL, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="col-lg-10">
+               <br/>
+                <form action="@Url.Action("EditEmp", "Adminstrator",new  { @idemp =Model.Employee_ID })" method="post">
+                    <input type="submit" value="Edit" class="btn btn-warning">
+                </form>
+            </div>
+        </div>
+    </div>
+   
+
+    </div>
+
+
+ 

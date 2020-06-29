@@ -1,0 +1,102 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+    ViewBag.Username = "Nam";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@model RealEstateWebsite.Areas.Admin.Models.Dashboard
+<div class="row">
+
+    <div class="col-lg-12">
+        <h3 class="page-header">
+            <i class="fa fa-laptop"></i> Dashboard
+        </h3>
+        <ol class="breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/Admin/Home/Index">Home</a>
+            </li>
+            <li>
+                <i class="fa fa-laptop"></i>Dashboard
+            </li>
+        </ol>
+    </div>
+</div>
+
+<script>
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	theme: "light2", // "light1", "light2", "dark1", "dark2"
+	title: {
+		text: "Number of Post in 7 day "
+	},
+	axisY: {
+	    title: "Number of Post"
+	},
+	data: [{
+		type: "column",
+		dataPoints: @Html.Raw(ViewBag.DataPoints)
+	}]
+});
+chart.render();
+
+}
+</script>
+
+
+
+
+
+
+
+<div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="info-box blue-bg">
+            <!-- <i class="fa fa-cloud-download"></i>-->
+            <div class="count">@Model.Count_Employee.ToString()</div>
+            <div class="title">Employee</div>
+        </div>
+        <!--/.info-box-->
+    </div>
+    <!--/.col-->
+
+    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="info-box brown-bg">
+            <!-- <i class="fa fa-shopping-cart"></i> -->
+            <div class="count">@Model.Count_Customer.ToString()</div>
+            <div class="title">Customer</div>
+        </div>
+        <!--/.info-box-->
+    </div>
+    <!--/.col-->
+
+    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="info-box dark-bg">
+            <!-- <i class="fa fa-thumbs-o-up"></i> -->
+            <div class="count">@Model.Count_Post.ToString()</div>
+            <div class="title">Post</div>
+        </div>
+        <!--/.info-box-->
+    </div>
+    <!--/.col-->
+
+    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="info-box green-bg">
+            <!-- <i class="fa fa-cubes"></i> -->
+            <div class="count">@Model.Sum_Sale.ToString()</div>
+            <div class="title">Post in day</div>
+        </div>
+        <!--/.info-box-->
+    </div>
+    <!--/.col-->
+
+</div>
+
+
+<div class="col-lg-12">
+    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+</div>
+<!-- page end-->
+<!-- </section> -->
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>

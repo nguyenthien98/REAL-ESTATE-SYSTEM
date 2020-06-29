@@ -1,0 +1,50 @@
+﻿@using RealEstateWebsite.Models;
+@model List<Post>
+@{
+    ViewBag.Title = "ApartmentPartial";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" style="padding-top:3%">
+    <div class="row">
+        @if (Model.Count == 0)
+        {
+            <h1 style="padding-bottom:4%;text-align:center;color:red">@ViewBag.Error</h1>
+        }
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-item">
+                    <div class="feature-pic set-bg" data-setbg="@(Constants.POST_IMG_URL_USER.ToString() + item.Post_Image.FirstOrDefault().url.ToString())"></div>
+                    <div class="feature-text">
+                        <div class="text-center feature-title">
+                            <a href="@Url.Action("ReadmorePartial", "Post", new { @Post_id = item.Post_ID })"><p>@item.Tittle</p></a>
+                        </div>
+                        <div class="room-info-warp">
+                            <div class="room-info">
+                                <div class="">
+                                    <p><i class="fas fa-map-marker-alt"></i>@item.Location</p>
+                                </div>
+                            </div>
+                            <div class="room-info1">
+                                <div class="rf-left">
+                                    <p><i class="fas fa-chart-area"></i>@item.Area m²</p>
+                                </div>
+                                <div class="rf-right">
+                                    <p><i class="far fa-clock"></i>@item.PostTime</p>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="room-price">@string.Format("{0:0,0 VND}", item.Price)</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+
+
+
+
+

@@ -1,0 +1,168 @@
+﻿@model RealEstateWebsite.Models.Post
+
+<link href="~/Content/Censor/slideshow.css" rel="stylesheet" />
+<link href="~/Content/Censor/notifications/Lobibox.min.css" rel="stylesheet" />
+<link href="~/Content/Censor/notifications/notifications.css" rel="stylesheet" />
+
+
+<script src="~/Scripts/Censor/notifications/notification-active.js"></script>
+<script src="~/Scripts/Censor/notifications/Lobibox.js"></script>
+<script>
+    var urlApprove = '/Censor/Post/ApprovePost';
+    var urlBlock = '/Censor/Post/BlockPost';
+    $(function () {
+        $("#btnApprove").click(function () {
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('data-id');
+            $.ajax({
+                type: "GET",
+                url: urlApprove,
+                contentType: "application/html; charset=utf-8",
+                data: { "post_ID": id },
+                datatype: "text",
+                success: function (data) {
+                    if (data == "1") {
+                        $('#PrimaryModalalert').modal('hide');
+                        $("#newPostTable").load(location.href + " #newPostTable>*", "");
+                        Lobibox.notify('success', {
+                            msg: 'Approve POST successed!'
+                        });
+                    } else {
+                        Lobibox.notify('error', {
+                            msg: 'Approve POST failed! Please try again.'
+                        });
+                    }
+                },
+                error: function () {
+                    Lobibox.notify('error', {
+                        msg: 'Approve POST failed! Please try again.'
+                    });
+                }
+            });
+        });
+
+
+        $("#btnBlock").click(function () {
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('data-id');
+            $.ajax({
+                type: "GET",
+                url: urlBlock,
+                contentType: "application/html; charset=utf-8",
+                data: { "post_ID": id },
+                datatype: "html",
+                success: function (data) {
+                    if (data == "1") {
+                        $('#PrimaryModalalert').modal('hide');
+                        $("#newPostTable").load(location.href + " #newPostTable>*", "");
+                        Lobibox.notify('success', {
+                            msg: 'Block POST successed!'
+                        });
+                    } else {
+                        Lobibox.notify('error', {
+                            msg: 'Block POST failed! Please try again.'
+                        });
+                    }
+                },
+                error: function () {
+                    Lobibox.notify('error', {
+                        msg: 'Block POST failed! Please try again.'
+                    });
+                }
+            });
+        });
+    });
+
+</script>
+<script src="~/Scripts/Censor/slideshow.js"></script>
+
+
+
+<div class="modal-close-area modal-close-df">
+    <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+</div>
+<div class="slideshow-container">
+    @for (int i = 0; i < Model.Post_Image.Count; i++)
+    {
+        <div class="mySlides1">
+            <img src="~/Images/Post/@Model.Post_Image.ToList()[i].url">
+        </div>
+    }
+
+    <a class="prev" onclick="plusSlides(-1, 0)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1, 0)">&#10095;</a>
+</div>
+<div class="sparkline8-list">
+    <table class="table">
+        <tbody>
+            <tr>
+                <td>Post ID: </td>
+                <td>@Model.Post_ID</td>
+            </tr>
+            <tr>
+                <td>Tittle: </td>
+                <td>@Model.Tittle</td>
+            </tr>
+            <tr>
+                <td>Poster: </td>
+                @if (Model.Customer != null)
+                {
+                    <td>@Model.Customer.LastName @Model.Customer.Firstname</td>
+                }
+                else
+                {
+                    <td>@Model.Employee.FullName</td>
+                }
+            </tr>
+            <tr>
+                <td>Post Time: </td>
+                <td>@Model.PostTime</td>
+            </tr>
+            <tr>
+                <td>Price: </td>
+                <td>@String.Format("{0:0,0 VND}", Model.Price)</td>
+            </tr>
+            <tr>
+                <td>Description: </td>
+                <td>@Model.Description</td>
+            </tr>
+            <tr>
+                <td>Location: </td>
+                <td>@Model.Location</td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table">
+        <tbody>
+            @if (Model.RealEstateType.RealEstateType_ID == 1)
+            {
+                <tr>
+                    <td>Bedroom: </td>
+                    <td>@(Model.Detail != null ? Model.Detail.Bedroom : null)</td>
+                    <td>Bathroom: </td>
+                    <td>@(Model.Detail != null ? Model.Detail.Bathroom : null)</td>
+                </tr>
+                <tr>
+                    <td>Floor: </td>
+                    <td>@(Model.Detail != null ? Model.Detail.Floor : null)</td>
+                    <td>Alley: </td>
+                    <td>@(Model.Detail != null ? Model.Detail.Alley : null)</td>
+                </tr>
+                <tr>
+                    <td>Direction: </td>
+                    <td>@(Model.Detail != null ? Model.Detail.Direction.Direction_Name : "")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">
+    @{
+        if (ViewBag.Type == "pending")
+        {
+            <button type="button" id="btnApprove" data-id="@Model.Post_ID" class="btn btn-custon-rounded-four btn-success" data-toggle="modal">Approve</button>
+            <button type="button" id="btnBlock" data-id="@Model.Post_ID" class="btn btn-custon-rounded-four btn-danger" data-toggle="modal">Block</button>
+        }
+    }
+    <button type="button" data-dismiss="modal" class="btn btn-custon-rounded-four btn-default">Cancel</button>
+</div>

@@ -1,0 +1,589 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RealEstateWebsiteModelStoreContainer" CdmEntityContainer="RealEstateWebsiteEntities">
+    <EntitySetMapping Name="Accounts">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.Account">
+        <MappingFragment StoreEntitySet="Account">
+          <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="IsSuperAdmin" ColumnName="IsSuperAdmin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AccountLogs">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.AccountLog">
+        <MappingFragment StoreEntitySet="AccountLog">
+          <ScalarProperty Name="Log_ID" ColumnName="Log_ID" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Permissions">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.Permission">
+        <MappingFragment StoreEntitySet="Permission">
+          <ScalarProperty Name="Permission_ID" ColumnName="Permission_ID" />
+          <ScalarProperty Name="PermissionTittle" ColumnName="PermissionTittle" />
+          <ScalarProperty Name="PermissionConstantName" ColumnName="PermissionConstantName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Permission_Role">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.Permission_Role">
+        <MappingFragment StoreEntitySet="Permission_Role">
+          <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+          <ScalarProperty Name="Permission_ID" ColumnName="Permission_ID" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+          <ScalarProperty Name="Role_Name" ColumnName="Role_Name" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Role_Account">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.Role_Account">
+        <MappingFragment StoreEntitySet="Role_Account">
+          <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
+          <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Blocks">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.Block">
+        <MappingFragment StoreEntitySet="Block">
+          <ScalarProperty Name="Block_ID" ColumnName="Block_ID" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+          <ScalarProperty Name="BlockDate" ColumnName="BlockDate" />
+          <ScalarProperty Name="UnBlockDate" ColumnName="UnBlockDate" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+          <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Avatar_URL" ColumnName="Avatar_URL" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customer_Report">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.Customer_Report">
+        <MappingFragment StoreEntitySet="Customer_Report">
+          <ScalarProperty Name="Customer_Report_ID" ColumnName="Customer_Report_ID" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+          <ScalarProperty Name="ReportDate" ColumnName="ReportDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Interested_Post">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.Interested_Post">
+        <MappingFragment StoreEntitySet="Interested_Post">
+          <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+          <ScalarProperty Name="Post_ID" ColumnName="Post_ID" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PhoneNumbers">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.PhoneNumber">
+        <MappingFragment StoreEntitySet="PhoneNumber">
+          <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+          <ScalarProperty Name="PhoneNumber1" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Promotions">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.Promotion">
+        <MappingFragment StoreEntitySet="Promotion">
+          <ScalarProperty Name="Promotion_ID" ColumnName="Promotion_ID" />
+          <ScalarProperty Name="Promotion_Name" ColumnName="Promotion_Name" />
+          <ScalarProperty Name="Sale" ColumnName="Sale" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Promotion_Detail">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.Promotion_Detail">
+        <MappingFragment StoreEntitySet="Promotion_Detail">
+          <ScalarProperty Name="Promotion_ID" ColumnName="Promotion_ID" />
+          <ScalarProperty Name="Post_ID" ColumnName="Post_ID" />
+          <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Types">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.Type">
+        <MappingFragment StoreEntitySet="Type">
+          <ScalarProperty Name="Type_ID" ColumnName="Type_ID" />
+          <ScalarProperty Name="Type_Name" ColumnName="Type_Name" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DatabaseLogs">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.DatabaseLog">
+        <MappingFragment StoreEntitySet="DatabaseLog">
+          <ScalarProperty Name="DatabaseLogID" ColumnName="DatabaseLogID" />
+          <ScalarProperty Name="PostTime" ColumnName="PostTime" />
+          <ScalarProperty Name="DatabaseUser" ColumnName="DatabaseUser" />
+          <ScalarProperty Name="Event" ColumnName="Event" />
+          <ScalarProperty Name="Schema" ColumnName="Schema" />
+          <ScalarProperty Name="Object" ColumnName="Object" />
+          <ScalarProperty Name="TSQL" ColumnName="TSQL" />
+          <ScalarProperty Name="XmlEvent" ColumnName="XmlEvent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ErrorLogs">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.ErrorLog">
+        <MappingFragment StoreEntitySet="ErrorLog">
+          <ScalarProperty Name="ErrorLogID" ColumnName="ErrorLogID" />
+          <ScalarProperty Name="ErrorTime" ColumnName="ErrorTime" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="ErrorNumber" ColumnName="ErrorNumber" />
+          <ScalarProperty Name="ErrorSeverity" ColumnName="ErrorSeverity" />
+          <ScalarProperty Name="ErrorState" ColumnName="ErrorState" />
+          <ScalarProperty Name="ErrorProcedure" ColumnName="ErrorProcedure" />
+          <ScalarProperty Name="ErrorLine" ColumnName="ErrorLine" />
+          <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Block1">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.Block1">
+        <MappingFragment StoreEntitySet="Block1">
+          <ScalarProperty Name="Block_ID" ColumnName="Block_ID" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+          <ScalarProperty Name="BlockDate" ColumnName="BlockDate" />
+          <ScalarProperty Name="UnBlockDate" ColumnName="UnBlockDate" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.Employee">
+        <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Avatar_URL" ColumnName="Avatar_URL" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Quits">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.Quit">
+        <MappingFragment StoreEntitySet="Quit">
+          <ScalarProperty Name="Quit_ID" ColumnName="Quit_ID" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+          <ScalarProperty Name="QuitDate" ColumnName="QuitDate" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Details">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.Detail">
+        <MappingFragment StoreEntitySet="Detail">
+          <ScalarProperty Name="Detail_ID" ColumnName="Detail_ID" />
+          <ScalarProperty Name="Floor" ColumnName="Floor" />
+          <ScalarProperty Name="Bedroom" ColumnName="Bedroom" />
+          <ScalarProperty Name="Bathroom" ColumnName="Bathroom" />
+          <ScalarProperty Name="Alley" ColumnName="Alley" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Directions">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.Direction">
+        <MappingFragment StoreEntitySet="Direction">
+          <ScalarProperty Name="Direction_ID" ColumnName="Direction_ID" />
+          <ScalarProperty Name="Direction_Name" ColumnName="Direction_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Posts">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.Post">
+        <MappingFragment StoreEntitySet="Post">
+          <ScalarProperty Name="Post_ID" ColumnName="Post_ID" />
+          <ScalarProperty Name="PostTime" ColumnName="PostTime" />
+          <ScalarProperty Name="Tittle" ColumnName="Tittle" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="Area" ColumnName="Area" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Post_Image">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.Post_Image">
+        <MappingFragment StoreEntitySet="Post_Image">
+          <ScalarProperty Name="Image_ID" ColumnName="Image_ID" />
+          <ScalarProperty Name="url" ColumnName="url" />
+          <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Post_Report">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.Post_Report">
+        <MappingFragment StoreEntitySet="Post_Report">
+          <ScalarProperty Name="Post_Report_ID" ColumnName="Post_Report_ID" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+          <ScalarProperty Name="Report_Time" ColumnName="Report_Time" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Post_Status">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.Post_Status">
+        <MappingFragment StoreEntitySet="Post_Status">
+          <ScalarProperty Name="Post_Status_ID" ColumnName="Post_Status_ID" />
+          <ScalarProperty Name="CensorshipTime" ColumnName="CensorshipTime" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projects">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.Project">
+        <MappingFragment StoreEntitySet="Project">
+          <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="Protential" ColumnName="Protential" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Project_Image">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.Project_Image">
+        <MappingFragment StoreEntitySet="Project_Image">
+          <ScalarProperty Name="Img_ID" ColumnName="Img_ID" />
+          <ScalarProperty Name="url" ColumnName="url" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RealEstateTypes">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.RealEstateType">
+        <MappingFragment StoreEntitySet="RealEstateType">
+          <ScalarProperty Name="RealEstateType_ID" ColumnName="RealEstateType_ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Status">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.Status">
+        <MappingFragment StoreEntitySet="Status">
+          <ScalarProperty Name="Status_ID" ColumnName="Status_ID" />
+          <ScalarProperty Name="Status_Type" ColumnName="Status_Type" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Type1">
+      <EntityTypeMapping TypeName="RealEstateWebsiteModel.Type1">
+        <MappingFragment StoreEntitySet="Type1">
+          <ScalarProperty Name="PostType_ID" ColumnName="PostType_ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="FK_AccountLog_Account" TypeName="RealEstateWebsiteModel.FK_AccountLog_Account" StoreEntitySet="AccountLog">
+      <EndProperty Name="Account">
+        <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
+      </EndProperty>
+      <EndProperty Name="AccountLog">
+        <ScalarProperty Name="Log_ID" ColumnName="Log_ID" />
+      </EndProperty>
+      <Condition IsNull="false" ColumnName="Account_ID" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Customer_Account" TypeName="RealEstateWebsiteModel.FK_Customer_Account" StoreEntitySet="Customer">
+      <EndProperty Name="Account">
+        <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
+      </EndProperty>
+      <EndProperty Name="Customer">
+        <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Employee_Account" TypeName="RealEstateWebsiteModel.FK_Employee_Account" StoreEntitySet="Employee">
+      <EndProperty Name="Account">
+        <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
+      </EndProperty>
+      <EndProperty Name="Employee">
+        <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Block_Customer" TypeName="RealEstateWebsiteModel.FK_Block_Customer" StoreEntitySet="Block">
+      <EndProperty Name="Customer">
+        <ScalarProperty Name="Customer_ID" ColumnName="Cus_ID" />
+      </EndProperty>
+      <EndProperty Name="Block">
+        <ScalarProperty Name="Block_ID" ColumnName="Block_ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Block_Employee" TypeName="RealEstateWebsiteModel.FK_Block_Employee" StoreEntitySet="Block">
+      <EndProperty Name="Employee">
+        <ScalarProperty Name="Employee_ID" ColumnName="Emp_Block" />
+      </EndProperty>
+      <EndProperty Name="Block">
+        <ScalarProperty Name="Block_ID" ColumnName="Block_ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Customer_Report_Customer" TypeName="RealEstateWebsiteModel.FK_Customer_Report_Customer" StoreEntitySet="Customer_Report">
+      <EndProperty Name="Customer">
+        <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+      </EndProperty>
+      <EndProperty Name="Customer_Report">
+        <ScalarProperty Name="Customer_Report_ID" ColumnName="Customer_Report_ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Customer_Report_Customer1" TypeName="RealEstateWebsiteModel.FK_Customer_Report_Customer1" StoreEntitySet="Customer_Report">
+      <EndProperty Name="Customer">
+        <ScalarProperty Name="Customer_ID" ColumnName="Reporter" />
+      </EndProperty>
+      <EndProperty Name="Customer_Report">
+        <ScalarProperty Name="Customer_Report_ID" ColumnName="Customer_Report_ID" />
+      </EndProperty>
+      <Condition IsNull="false" ColumnName="Reporter" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Customer_Type" TypeName="RealEstateWebsiteModel.FK_Customer_Type" StoreEntitySet="Customer">
+      <EndProperty Name="Type">
+        <ScalarProperty Name="Type_ID" ColumnName="Customer_Type" />
+      </EndProperty>
+      <EndProperty Name="Customer">
+        <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+      </EndProperty>
+      <Condition IsNull="false" ColumnName="Customer_Type" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Post_Customer" TypeName="RealEstateWebsiteModel.FK_Post_Customer" StoreEntitySet="Post">
+      <EndProperty Name="Customer">
+        <ScalarProperty Name="Customer_ID" ColumnName="Author_ID" />
+      </EndProperty>
+      <EndProperty Name="Post">
+        <ScalarProperty Name="Post_ID" ColumnName="Post_ID" />
+      </EndProperty>
+      <Condition IsNull="false" ColumnName="Author_ID" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Post_Report_Customer" TypeName="RealEstateWebsiteModel.FK_Post_Report_Customer" StoreEntitySet="Post_Report">
+      <EndProperty Name="Customer">
+        <ScalarProperty Name="Customer_ID" ColumnName="Reporter" />
+      </EndProperty>
+      <EndProperty Name="Post_Report">
+        <ScalarProperty Name="Post_Report_ID" ColumnName="Post_Report_ID" />
+      </EndProperty>
+      <Condition IsNull="false" ColumnName="Reporter" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Promotion_Customer" TypeName="RealEstateWebsiteModel.FK_Promotion_Customer" StoreEntitySet="Promotion">
+      <EndProperty Name="Customer">
+        <ScalarProperty Name="Customer_ID" ColumnName="Creator" />
+      </EndProperty>
+      <EndProperty Name="Promotion">
+        <ScalarProperty Name="Promotion_ID" ColumnName="Promotion_ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Customer_Report_Employee" TypeName="RealEstateWebsiteModel.FK_Customer_Report_Employee" StoreEntitySet="Customer_Report">
+      <EndProperty Name="Employee">
+        <ScalarProperty Name="Employee_ID" ColumnName="Censor_ID" />
+      </EndProperty>
+      <EndProperty Name="Customer_Report">
+        <ScalarProperty Name="Customer_Report_ID" ColumnName="Customer_Report_ID" />
+      </EndProperty>
+      <Condition IsNull="false" ColumnName="Censor_ID" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Block_Employee1" TypeName="RealEstateWebsiteModel.FK_Block_Employee1" StoreEntitySet="Block1">
+      <EndProperty Name="Employee">
+        <ScalarProperty Name="Employee_ID" ColumnName="Emp_ID" />
+      </EndProperty>
+      <EndProperty Name="Block1">
+        <ScalarProperty Name="Block_ID" ColumnName="Block_ID" />
+      </EndProperty>
+      <Condition IsNull="false" ColumnName="Emp_ID" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Employee_Employee" TypeName="RealEstateWebsiteModel.FK_Employee_Employee" StoreEntitySet="Employee">
+      <EndProperty Name="Employee">
+        <ScalarProperty Name="Employee_ID" ColumnName="Manager_ID" />
+      </EndProperty>
+      <EndProperty Name="Employee1">
+        <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+      </EndProperty>
+      <Condition IsNull="false" ColumnName="Manager_ID" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Post_Employee" TypeName="RealEstateWebsiteModel.FK_Post_Employee" StoreEntitySet="Post">
+      <EndProperty Name="Employee">
+        <ScalarProperty Name="Employee_ID" ColumnName="Author_Emp_ID" />
+      </EndProperty>
+      <EndProperty Name="Post">
+        <ScalarProperty Name="Post_ID" ColumnName="Post_ID" />
+      </EndProperty>
+      <Condition IsNull="false" ColumnName="Author_Emp_ID" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Post_Report_Employee" TypeName="RealEstateWebsiteModel.FK_Post_Report_Employee" StoreEntitySet="Post_Report">
+      <EndProperty Name="Employee">
+        <ScalarProperty Name="Employee_ID" ColumnName="Censor_ID" />
+      </EndProperty>
+      <EndProperty Name="Post_Report">
+        <ScalarProperty Name="Post_Report_ID" ColumnName="Post_Report_ID" />
+      </EndProperty>
+      <Condition IsNull="false" ColumnName="Censor_ID" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Post_Status_Employee" TypeName="RealEstateWebsiteModel.FK_Post_Status_Employee" StoreEntitySet="Post_Status">
+      <EndProperty Name="Employee">
+        <ScalarProperty Name="Employee_ID" ColumnName="Censor" />
+      </EndProperty>
+      <EndProperty Name="Post_Status">
+        <ScalarProperty Name="Post_Status_ID" ColumnName="Post_Status_ID" />
+      </EndProperty>
+      <Condition IsNull="false" ColumnName="Censor" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Quit_Employee" TypeName="RealEstateWebsiteModel.FK_Quit_Employee" StoreEntitySet="Quit">
+      <EndProperty Name="Employee">
+        <ScalarProperty Name="Employee_ID" ColumnName="Emp_ID" />
+      </EndProperty>
+      <EndProperty Name="Quit">
+        <ScalarProperty Name="Quit_ID" ColumnName="Quit_ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Detail_Direction" TypeName="RealEstateWebsiteModel.FK_Detail_Direction" StoreEntitySet="Detail">
+      <EndProperty Name="Direction">
+        <ScalarProperty Name="Direction_ID" ColumnName="Direction_ID" />
+      </EndProperty>
+      <EndProperty Name="Detail">
+        <ScalarProperty Name="Detail_ID" ColumnName="Detail_ID" />
+      </EndProperty>
+      <Condition IsNull="false" ColumnName="Direction_ID" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Post_Detail" TypeName="RealEstateWebsiteModel.FK_Post_Detail" StoreEntitySet="Post">
+      <EndProperty Name="Detail">
+        <ScalarProperty Name="Detail_ID" ColumnName="Detail" />
+      </EndProperty>
+      <EndProperty Name="Post">
+        <ScalarProperty Name="Post_ID" ColumnName="Post_ID" />
+      </EndProperty>
+      <Condition IsNull="false" ColumnName="Detail" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Post_Image_Post" TypeName="RealEstateWebsiteModel.FK_Post_Image_Post" StoreEntitySet="Post_Image">
+      <EndProperty Name="Post">
+        <ScalarProperty Name="Post_ID" ColumnName="Post_ID" />
+      </EndProperty>
+      <EndProperty Name="Post_Image">
+        <ScalarProperty Name="Image_ID" ColumnName="Image_ID" />
+      </EndProperty>
+      <Condition IsNull="false" ColumnName="Post_ID" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Post_PostType" TypeName="RealEstateWebsiteModel.FK_Post_PostType" StoreEntitySet="Post">
+      <EndProperty Name="Type1">
+        <ScalarProperty Name="PostType_ID" ColumnName="PostType" />
+      </EndProperty>
+      <EndProperty Name="Post">
+        <ScalarProperty Name="Post_ID" ColumnName="Post_ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Post_Project" TypeName="RealEstateWebsiteModel.FK_Post_Project" StoreEntitySet="Post">
+      <EndProperty Name="Project">
+        <ScalarProperty Name="Project_ID" ColumnName="Project" />
+      </EndProperty>
+      <EndProperty Name="Post">
+        <ScalarProperty Name="Post_ID" ColumnName="Post_ID" />
+      </EndProperty>
+      <Condition IsNull="false" ColumnName="Project" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Post_RealEstaleType" TypeName="RealEstateWebsiteModel.FK_Post_RealEstaleType" StoreEntitySet="Post">
+      <EndProperty Name="RealEstateType">
+        <ScalarProperty Name="RealEstateType_ID" ColumnName="RealEstaleType" />
+      </EndProperty>
+      <EndProperty Name="Post">
+        <ScalarProperty Name="Post_ID" ColumnName="Post_ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Post_Report_Post" TypeName="RealEstateWebsiteModel.FK_Post_Report_Post" StoreEntitySet="Post_Report">
+      <EndProperty Name="Post">
+        <ScalarProperty Name="Post_ID" ColumnName="Post_ID" />
+      </EndProperty>
+      <EndProperty Name="Post_Report">
+        <ScalarProperty Name="Post_Report_ID" ColumnName="Post_Report_ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Post_Status_Post" TypeName="RealEstateWebsiteModel.FK_Post_Status_Post" StoreEntitySet="Post_Status">
+      <EndProperty Name="Post">
+        <ScalarProperty Name="Post_ID" ColumnName="Post_ID" />
+      </EndProperty>
+      <EndProperty Name="Post_Status">
+        <ScalarProperty Name="Post_Status_ID" ColumnName="Post_Status_ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Post_Status_Status" TypeName="RealEstateWebsiteModel.FK_Post_Status_Status" StoreEntitySet="Post_Status">
+      <EndProperty Name="Status">
+        <ScalarProperty Name="Status_ID" ColumnName="Status" />
+      </EndProperty>
+      <EndProperty Name="Post_Status">
+        <ScalarProperty Name="Post_Status_ID" ColumnName="Post_Status_ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Project_Image_Project" TypeName="RealEstateWebsiteModel.FK_Project_Image_Project" StoreEntitySet="Project_Image">
+      <EndProperty Name="Project">
+        <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+      </EndProperty>
+      <EndProperty Name="Project_Image">
+        <ScalarProperty Name="Img_ID" ColumnName="Img_ID" />
+      </EndProperty>
+      <Condition IsNull="false" ColumnName="Project_ID" />
+    </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="USP_AddManager_id" FunctionName="RealEstateWebsiteModel.Store.USP_AddManager_id">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RealEstateWebsiteModel.USP_AddManager_id_Result">
+          <ScalarProperty Name="Censor" ColumnName="Censor" />
+          <ScalarProperty Name="Column1" ColumnName="Column1" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USP_GetPostCountBydate" FunctionName="RealEstateWebsiteModel.Store.USP_GetPostCountBydate">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RealEstateWebsiteModel.USP_GetPostCountBydate_Result">
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="count" ColumnName="count" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USP_InsertAccountLog" FunctionName="RealEstateWebsiteModel.Store.USP_InsertAccountLog" />
+    <FunctionImportMapping FunctionImportName="USP_InsertBlockCust" FunctionName="RealEstateWebsiteModel.Store.USP_InsertBlockCust" />
+    <FunctionImportMapping FunctionImportName="USP_InsertBlockEmp" FunctionName="RealEstateWebsiteModel.Store.USP_InsertBlockEmp" />
+    <FunctionImportMapping FunctionImportName="USP_InsertQuitEmp" FunctionName="RealEstateWebsiteModel.Store.USP_InsertQuitEmp" />
+    <FunctionImportMapping FunctionImportName="USP_UnBlockBlockCust" FunctionName="RealEstateWebsiteModel.Store.USP_UnBlockBlockCust" />
+    <FunctionImportMapping FunctionImportName="USP_UnBlockBlockEmp" FunctionName="RealEstateWebsiteModel.Store.USP_UnBlockBlockEmp" />
+    <FunctionImportMapping FunctionImportName="uspLogError" FunctionName="RealEstateWebsiteModel.Store.uspLogError" />
+    <FunctionImportMapping FunctionImportName="uspPrintError" FunctionName="RealEstateWebsiteModel.Store.uspPrintError" />
+    <FunctionImportMapping FunctionImportName="spSearchKeyPrice" FunctionName="RealEstateWebsiteModel.Store.spSearchKeyPrice">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RealEstateWebsiteModel.spSearchKeyPrice_Result">
+          <ScalarProperty Name="url" ColumnName="url" />
+          <ScalarProperty Name="Post_ID" ColumnName="Post_ID" />
+          <ScalarProperty Name="Tittle" ColumnName="Tittle" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="Area" ColumnName="Area" />
+          <ScalarProperty Name="PostTime" ColumnName="PostTime" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spUpdateAccount" FunctionName="RealEstateWebsiteModel.Store.spUpdateAccount" />
+  </EntityContainerMapping>
+</Mapping>

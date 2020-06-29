@@ -1,0 +1,90 @@
+﻿@model RES.Data.DBModels.Information
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    var notice = TempData["Notice"];
+
+    if (notice != null)
+    {
+        ViewData["Notice"] = notice;
+    }
+}
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-12">
+            <partial name="~/Areas/Identity/Pages/Account/Manage/_StatusMessage.cshtml" model="@(ViewData["Notice"] == null ? null : ViewData["Notice"].ToString())" />
+            <div class="card">
+                <div class="card-header">Thông tin website</div>
+                <div class="card-body card-block">
+                    <form asp-action="Index">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="InfoId" />
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-12">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
+                                        <input type="email" asp-for="Email" placeholder="Email" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-info"></i></div>
+                                        <input type="text" asp-for="Address" placeholder="Địa chỉ" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                                        <input type="tel" asp-for="PhoneNumber" placeholder="Số điện thoại" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
+                                        <input type="text" asp-for="WorkingTime" placeholder="Thời gian làm việc" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-12">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-facebook"></i></div>
+                                        <input type="text" asp-for="Facebook" placeholder="Địa chỉ Facebook" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-twitter"></i></div>
+                                        <input type="text" asp-for="Twitter" placeholder="Địa chỉ Twitter" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-instagram"></i></div>
+                                        <input type="text" asp-for="Instagram" placeholder="Địa chỉ Instagram" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-pinterest"></i></div>
+                                        <input type="text" asp-for="Pinterest" placeholder="Địa chỉ Pinterest" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-linkedin"></i></div>
+                                        <input type="text" asp-for="Linkedin" placeholder="Địa chỉ Linkedin" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions form-group"><button type="submit" class="btn btn-success btn-sm">Lưu thông tin</button></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

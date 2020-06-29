@@ -1,0 +1,114 @@
+﻿@model RealEstateWebsite.Models.Customer
+
+@{
+    ViewBag.Title = "Add Customer | Real Estate System";
+    Layout = "~/Areas/Censor/Views/Shared/_Layout.cshtml";
+}
+
+<!-- forms CSS
+        ============================================ -->
+<link rel="stylesheet" href="~/Content/Censor/form/all-type-forms.css">
+<!-- dropzone CSS
+    ============================================ -->
+<link rel="stylesheet" href="~/Content/Censor/dropzone/dropzone.css">
+
+
+<div class="single-pro-review-area mt-t-30 mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="product-payment-inner-st">
+                    <ul id="myTabedu1" class="tab-review-design">
+                        <li class="active"><a href="#description">Basic Information</a></li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content custom-product-edit">
+                        <div class="product-tab-list tab-pane fade active in" id="description">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="review-content-section">
+                                        <div id="dropzone1" class="pro-ad">
+                                            @using (Html.BeginForm("AddCustomer", "Customer", FormMethod.Post, htmlAttributes: new { enctype = "multipart/form-data", @class = "dropzone dropzone-custom needsclick add-professors dz-clickable", @id = "demo1-upload", @novalidate = "novalidate" }))
+                                            {
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            @Html.TextBoxFor(n => n.Firstname, htmlAttributes: new { @name = "firstname", @class = "form-control", @placeholder = "First Name" })
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.TextBoxFor(n => n.LastName, htmlAttributes: new { @name = "lastname", @class = "form-control", @placeholder = "Last Name" })
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.TextBox("phoneNumber", null, htmlAttributes: new { @name = "mobileno", @class = "form-control", @placeholder = "Phone Number" })
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.TextBoxFor(n => n.Email, htmlAttributes: new { @type = "email", @name = "email", @class = "form-control", @placeholder = "Email" })
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="file">Upload Image:</label> <input type="file" name="image" multiple="multiple" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                        <div class="row">
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="form-group">
+                                                                    @Html.TextBoxFor(n => n.Address, htmlAttributes: new { @name = "Address", @class = "form-control", @placeholder = "Address" })
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    @Html.TextBoxFor(n => n.Account.UserName, htmlAttributes: new { @name = "Account.UserName", @class = "form-control", @placeholder = "User name" })
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    @Html.TextBox("password", null, htmlAttributes: new { @type = "password", @name = "password", @class = "form-control", @placeholder = "Password" })
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    @Html.TextBox("repassword", null, htmlAttributes: new { @type = "password", @name = "repassword", @class = "form-control", @placeholder = "Confirm Password" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="payment-adress">
+                                                            <button type="submit" id="btnSubmit" class="btn btn-primary waves-effect waves-light">Submit</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- maskedinput JS
+        ============================================ -->
+<script src="~/Scripts/Censor/jquery.maskedinput.min.js"></script>
+<script src="~/Scripts/Censor/masking-active.js"></script>
+<!-- datepicker JS
+    ============================================ -->
+<script src="~/Scripts/Censor/datepicker/jquery-ui.min.js"></script>
+<script src="~/Scripts/Censor/datepicker/datepicker-active.js"></script>
+<!-- form validate JS
+    ============================================ -->
+<script src="~/Scripts/Censor/form-validation/jquery.form.min.js"></script>
+<script src="~/Scripts/Censor/form-validation/jquery.validate.min.js"></script>
+<script src="~/Scripts/Censor/form-validation/form-active.js"></script>
+<!-- tab JS
+    ============================================ -->
+<script src="~/Scripts/Censor/tab.js"></script>
+
+<script>
+    var type = '@ViewBag.AddCustomerOK';
+    if (type !== null && type !== "") {
+        Lobibox.notify('success', {
+            msg: 'Add customer successfull'
+        });
+    }
+</script>

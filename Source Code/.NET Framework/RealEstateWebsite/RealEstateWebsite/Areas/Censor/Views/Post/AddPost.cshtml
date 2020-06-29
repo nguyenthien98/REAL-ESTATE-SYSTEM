@@ -1,0 +1,224 @@
+﻿@model RealEstateWebsite.Areas.Censor.Models.PostData
+
+@{
+    ViewBag.Title = "Add Post | Real Estate System";
+    Layout = "~/Areas/Censor/Views/Shared/_Layout.cshtml";
+}
+
+<!-- forms CSS
+        ============================================ -->
+<link rel="stylesheet" href="~/Content/Censor/form/all-type-forms.css">
+<!-- dropzone CSS
+    ============================================ -->
+<link rel="stylesheet" href="~/Content/Censor/dropzone/dropzone.css">
+<!-- Upload Multiple Files CSS
+        ============================================ -->
+<link href="~/Content/Censor/uploadmultifiles.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+<div class="single-pro-review-area mt-t-30 mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="product-payment-inner-st">
+                    <ul id="myTabedu1" class="tab-review-design">
+                        <li class="active"><a href="#description">Add new post</a></li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content custom-product-edit">
+                        <div class="product-tab-list tab-pane fade active in" id="description">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="review-content-section">
+                                        <div id="dropzone1" class="pro-ad">
+                                            @using (Html.BeginForm("AddPost", "Post", FormMethod.Post, htmlAttributes: new { enctype = "multipart/form-data", @class = "dropzone dropzone-custom needsclick add-professors dz-clickable", @id = "demo1-upload", @novalidate = "novalidate" }))
+                                            {
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            @Html.TextBoxFor(n => n.post.Tittle, htmlAttributes: new { @name = "title", @class = "form-control", @placeholder = "Title" })
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.TextBoxFor(n => n.post.Price, htmlAttributes: new { @name = "price", @type = "number", @class = "form-control", @placeholder = "Price" })
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.TextBoxFor(n => n.post.Area, htmlAttributes: new { @name = "area", @type = "number", @class = "form-control", @placeholder = "Area" })
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.TextBoxFor(n => n.post.Location, htmlAttributes: new { @name = "location", @class = "form-control", @placeholder = "Location" })
+                                                        </div>
+                                                        <div class="form-group res-mg-t-15">
+                                                            @Html.TextAreaFor(n => n.post.Description, htmlAttributes: new { @name = "description", @placeholder = "Description" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <select name="project" class="form-control">
+                                                                <option value="none" selected="" disabled="">Project</option>
+                                                                @{ foreach (var item in Model.lstProject)
+                                                                    {
+                                                                        <option value="@item.Project_ID">@item.ProjectName</option>
+                                                                    }
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pad-l0 form-group">
+                                                            <select name="posttype" class="form-control">
+                                                                <option value="none" selected="" disabled="">Post Type</option>
+                                                                @{ foreach (var item in Model.lstPostType)
+                                                                    {
+                                                                        <option value="@item.PostType_ID">@item.Name</option>
+                                                                    }
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pad-r0 form-group form-group">
+                                                            <select id="typeOfRealEstate" name="typeOfRealEstate" class="form-control">
+                                                                <option value="none" selected="" disabled="">Real Estate Type</option>
+                                                                @{ foreach (var item in Model.lstRealEstateType)
+                                                                    {
+                                                                        <option value="@item.RealEstateType_ID">@item.Name</option>
+                                                                    }
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                        <div id="detailsHouse" class="detailsHouse pad-t113">
+                                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pad-l0 form-group">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><span class="fa fa-bed" aria-hidden="true"></span></span>
+                                                                    <select name="bedroom" class="form-control">
+                                                                        <option value="none" selected="" disabled="">Bedroom</option>
+                                                                        <option value="1">1</option>
+                                                                        <option value="2">2</option>
+                                                                        <option value="3">3</option>
+                                                                        <option value="4">4</option>
+                                                                        <option value="5">5</option>
+                                                                        <option value="6">6</option>
+                                                                        <option value="7">7</option>
+                                                                        <option value="8">8</option>
+                                                                        <option value="9">9</option>
+                                                                        <option value="10">10</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pad-r0 form-group">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><span class="fas fa-bath" aria-hidden="true"></span></span>
+                                                                    <select name="bathroom" class="form-control">
+                                                                        <option value="none" selected="" disabled="">Bathroom</option>
+                                                                        <option value="1">1</option>
+                                                                        <option value="2">2</option>
+                                                                        <option value="3">3</option>
+                                                                        <option value="4">4</option>
+                                                                        <option value="5">5</option>
+                                                                        <option value="6">6</option>
+                                                                        <option value="7">7</option>
+                                                                        <option value="8">8</option>
+                                                                        <option value="9">9</option>
+                                                                        <option value="10">10</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pad-l0 form-group">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><span class="fas fa-building" aria-hidden="true"></span></span>
+                                                                    <select name="floor" class="form-control">
+                                                                        <option value="none" selected="" disabled="">Floor</option>
+                                                                        <option value="1">1</option>
+                                                                        <option value="2">2</option>
+                                                                        <option value="3">3</option>
+                                                                        <option value="4">4</option>
+                                                                        <option value="5">5</option>
+                                                                        <option value="6">6</option>
+                                                                        <option value="7">7</option>
+                                                                        <option value="8">8</option>
+                                                                        <option value="9">9</option>
+                                                                        <option value="10">10</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pad-r0 form-group">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><span class="fas fa-road" aria-hidden="true"></span></span>
+                                                                    <select name="alley" class="form-control">
+                                                                        <option value="none" selected="" disabled="">Alley</option>
+                                                                        <option value="1">Yes</option>
+                                                                        <option value="0">No</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pad-r0  pad-l0 form-group">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><span class="fas fa-compass" aria-hidden="true"></span></span>
+                                                                    <select name="direction" class="form-control">
+                                                                        <option value="none" selected="" disabled="">Direction</option>
+                                                                        @foreach (var item in Model.lstDirection)
+                                                                        {
+                                                                            <option value="@item.Direction_ID">@item.Direction_Name</option>
+                                                                        }
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <input type="file" id="pro-image" name="pro-image" class="form-control" multiple>
+                                                    </div>
+                                                </div>
+                                                <div class="row pad-t10">
+                                                    <div class="col-lg-12">
+                                                        <div class="payment-adress">
+                                                            <button type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- maskedinput JS
+        ============================================ -->
+<script src="~/Scripts/Censor/jquery.maskedinput.min.js"></script>
+<script src="~/Scripts/Censor/masking-active.js"></script>
+<!-- datepicker JS
+    ============================================ -->
+<script src="~/Scripts/Censor/datepicker/jquery-ui.min.js"></script>
+<script src="~/Scripts/Censor/datepicker/datepicker-active.js"></script>
+<!-- form validate JS
+    ============================================ -->
+<script src="~/Scripts/Censor/form-validation/jquery.form.min.js"></script>
+<script src="~/Scripts/Censor/form-validation/jquery.validate.min.js"></script>
+<script src="~/Scripts/Censor/form-validation/form-active.js"></script>
+<!-- tab JS
+    ============================================ -->
+<script src="~/Scripts/Censor/tab.js"></script>
+<!-- Upload Multiple Files JS
+    ============================================ -->
+@*<script src="~/Scripts/Censor/uploadmultifiles.js"></script>*@
+
+<script type="text/javascript">
+
+    $('#typeOfRealEstate').change(function () {
+        var item = $(this).val();
+        if (item === "1") {
+            $("#detailsHouse").show();
+        } else {
+            $("#detailsHouse").hide();
+        }
+    });
+
+    var type = '@ViewBag.AddNewPost';
+    if (type !== null && type !== "") {
+        Lobibox.notify('success', {
+            msg: 'Add new post successed'
+        });
+    }
+</script> 

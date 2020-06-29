@@ -1,0 +1,325 @@
+﻿@using RealEstateWebsite.Models
+
+@{ if (Session["Account_Censor"] == null || Session["Account_Censor"].ToString() == "")
+    {
+        ViewBag.Error = "You must login first";
+        Response.Redirect("~/Censor/Account/Login");
+    }
+}
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- favicon
+        ============================================ -->
+    <link rel="shortcut icon" type="image/x-icon" href="~/Images/Censor/favicon.ico">
+    <!-- Google Fonts
+        ============================================ -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
+    <!-- Bootstrap CSS
+        ============================================ -->
+    <link href="~/Content/Censor/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootstrap CSS
+        ============================================ -->
+    <link href="~/Content/Censor/font-awesome.min.css" rel="stylesheet" />
+    <!-- owl.carousel CSS
+        ============================================ -->
+    <link href="~/Content/Censor/owl.carousel.css" rel="stylesheet" />
+    <link href="~/Content/Censor/owl.theme.css" rel="stylesheet" />
+    <link href="~/Content/Censor/owl.transitions.css" rel="stylesheet" />
+    <!-- animate CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/Censor/animate.css">
+    <!-- normalize CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/Censor/normalize.css">
+    <!-- meanmenu icon CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/Censor/meanmenu.min.css">
+    <!-- main CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/Censor/main.css">
+    <!-- educate icon CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/Censor/educate-custon-icon.css">
+    <!-- morrisjs CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/Censor/morrisjs/morris.css">
+    <!-- mCustomScrollbar CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/Censor/scrollbar/jquery.mCustomScrollbar.min.css">
+    <!-- metisMenu CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/Censor/metisMenu/metisMenu.min.css">
+    <link rel="stylesheet" href="~/Content/Censor/metisMenu/metisMenu-vertical.css">
+    <!-- calendar CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/Censor/calendar/fullcalendar.min.css">
+    <link rel="stylesheet" href="~/Content/Censor/calendar/fullcalendar.print.min.css">
+    <!-- style CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/Censor/style.css">
+    <!-- responsive CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/Censor/responsive.css">
+    <!-- notifications CSS
+        ============================================ -->
+    <link href="~/Content/Censor/notifications/Lobibox.min.css" rel="stylesheet" />
+    <link href="~/Content/Censor/notifications/notifications.css" rel="stylesheet" />
+
+    <!-- jquery
+    ============================================ -->
+    <script src="~/Scripts/Censor/vendor/jquery-1.12.4.min.js"></script>
+    <!-- modernizr JS
+        ============================================ -->
+    <script src="~/Scripts/Censor/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- notification JS
+        ============================================ -->
+    <script src="~/Scripts/Censor/notifications/Lobibox.js"></script>
+    <!-- morrisjs JS
+        ============================================ -->
+    <script src="~/Scripts/Censor/morrisjs/raphael-min.js"></script>
+    <script src="~/Scripts/Censor/morrisjs/morris.js"></script>
+
+</head>
+
+<body>
+    <div class="left-sidebar-pro">
+        <nav id="sidebar" class="">
+            <div class="sidebar-header">
+                <a href="@Url.Action("Index", "Home")"><img class="main-logo" src="~/Images/Censor/logo/logo.png" alt="" /></a>
+                <strong><a href="index.html"><img src="~/Images/Censor/logo/logosn.png" alt="" /></a></strong>
+            </div>
+            <div class="left-custom-menu-adp-wrap comment-scrollbar">
+                <nav class="sidebar-nav left-sidebar-menu-pro">
+                    <ul class="metismenu" id="menu1">
+                        <li>
+                            <a title="Landing Page" href="@Url.Action("Index", "Home")" aria-expanded="false"><span class="educate-icon educate-event icon-wrap sub-icon-mg" aria-hidden="true"></span> <span class="mini-click-non">Dashboard</span></a>
+                        </li>
+                        <li class="active">
+                            <a class="has-arrow" href="@Url.Action("Index", "Post")" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span> <span class="mini-click-non">Posts</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                <li><a title="All Posts" href="@Url.Action("Index", "Post")"><span class="mini-sub-pro">All Posts</span></a></li>
+                                <li><a title="Pending Posts" href="@Url.Action("PendingPost", "Post")"><span class="mini-sub-pro">Pending Post</span></a></li>
+                                <li><a title="Reported Posts" href="@Url.Action("ReportPost", "Post")"><span class="mini-sub-pro">Reported Posts</span></a></li>
+                                <li><a title="Add Post" href="@Url.Action("AddPost", "Post")"><span class="mini-sub-pro">Add Post</span></a></li>
+                            </ul>
+                        </li>
+                        <li class="active">
+                            <a class="has-arrow" href="@Url.Action("Index", "Customer")" aria-expanded="false"><span class="educate-icon educate-professor icon-wrap"></span> <span class="mini-click-non">Customers</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                <li><a title="All Customers" href="@Url.Action("Index", "Customer")"><span class="mini-sub-pro">All Customers</span></a></li>
+                                <li><a title="Reported Customers" href="@Url.Action("ReportedCustomers", "Customer")"><span class="mini-sub-pro">Reported Customers</span></a></li>
+                                <li><a title="Add Customer" href="@Url.Action("AddCustomer", "Customer")"><span class="mini-sub-pro">Add Customer</span></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </nav>
+    </div>
+    <!-- End Left menu area -->
+    <!-- Start Welcome area -->
+    <div class="all-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="logo-pro">
+                        <a href="index.html"><img class="main-logo" src="~/Images/Censor/logo/logo.png" alt="" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-advance-area">
+            <div class="header-top-area">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="header-top-wraper">
+                                <div class="row">
+                                    <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
+                                        <div class="menu-switcher-pro">
+                                            <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                                                <i class="educate-icon educate-nav"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
+                                        <div class="header-top-menu tabl-d-n">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                                        <div class="header-right-info">
+                                            <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                                <li class="nav-item">
+                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                                        @{
+                                                            Employee emp = Session["Account_Censor"] as Employee;
+                                                            if (emp == null)
+                                                            {
+                                                                emp = new Employee();
+                                                                emp.FullName = "";
+                                                                emp.Avatar_URL = "";
+                                                            }
+
+                                                        }
+                                                        <img src="@(Constants.EMP_IMG_URL.ToString() + emp.Avatar_URL.ToString())" alt="" />
+
+                                                        <span class="admin-name">@emp.FullName.ToString()</span>
+                                                        <i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
+                                                    </a>
+                                                    <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                        <li>
+                                                            <a href="#"><span class="edu-icon edu-home-admin author-log-ic"></span>My Account</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#"><span class="edu-icon edu-user-rounded author-log-ic"></span>My Profile</a>
+                                                        </li>
+                                                        @*<li>
+                                                                <a href="#"><span class="edu-icon edu-money author-log-ic"></span>User Billing</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#"><span class="edu-icon edu-settings author-log-ic"></span>Settings</a>
+                                                            </li>*@
+                                                        <li>
+                                                            @Html.ActionLink("Log Out", "Logout", "Account", null, htmlAttributes: new { @style = "padding-left: 30px" })
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Mobile Menu start -->
+            <div class="mobile-menu-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="mobile-menu">
+                                <nav id="dropdown">
+                                    <ul class="mobile-menu-nav">
+                                        <li>@Html.ActionLink("Dashboard", "Index", "Home")</li>
+                                        <li>
+                                            <a data-toggle="collapse" data-target="#demoevent" href="#">Posts <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                            <ul id="demoevent" class="collapse dropdown-header-top">
+                                                <li>
+                                                    @Html.ActionLink("All Posts", "Index", "Post")
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink("Pending Posts", "PendingPost", "Post")
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink("Reported Posts", "ReportPost", "Post")
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink("New Post", "NewPost", "Post")
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a data-toggle="collapse" data-target="#demopro" href="#">Customers<span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                            <ul id="demopro" class="collapse dropdown-header-top">
+                                                <li>
+                                                    @Html.ActionLink("All Customers", "Index", "Customer")
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink("Reported Customers", "ReportedCustomers", "Customer")
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink("Add Customer", "AddCustomer", "Customer")
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Mobile Menu end -->
+            @RenderBody()
+        </div>
+        <div class="footer-copyright-area">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="footer-copy-right">
+                            <p>Copyright © 2018 Real Estate System</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- bootstrap JS
+        ============================================ -->
+    <script src="~/Scripts/Censor/bootstrap.min.js"></script>
+    <!-- wow JS
+        ============================================ -->
+    <script src="~/Scripts/Censor/wow.min.js"></script>
+    <!-- price-slider JS
+        ============================================ -->
+    <script src="~/Scripts/Censor/jquery-price-slider.js"></script>
+    <!-- meanmenu JS
+        ============================================ -->
+    <script src="~/Scripts/Censor/jquery.meanmenu.js"></script>
+    <!-- owl.carousel JS
+        ============================================ -->
+    <script src="~/Scripts/Censor/owl.carousel.min.js"></script>
+    <!-- sticky JS
+        ============================================ -->
+    <script src="~/Scripts/Censor/jquery.sticky.js"></script>
+    <!-- scrollUp JS
+        ============================================ -->
+    <script src="~/Scripts/Censor/jquery.scrollUp.min.js"></script>
+
+    <!-- mCustomScrollbar JS
+        ============================================ -->
+    <script src="~/Scripts/Censor/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/Scripts/Censor/scrollbar/mCustomScrollbar-active.js"></script>
+    <!-- metisMenu JS
+        ============================================ -->
+    <script src="~/Scripts/Censor/metisMenu/metisMenu.min.js"></script>
+    <script src="~/Scripts/Censor/metisMenu/metisMenu-active.js"></script>
+
+    <!-- counterup JS
+           ============================================ -->
+    <script src="~/Scripts/Censor/counterup/jquery.counterup.min.js"></script>
+    <script src="~/Scripts/Censor/counterup/waypoints.min.js"></script>
+    <script src="~/Scripts/Censor/counterup/counterup-active.js"></script>
+    <!-- morrisjs JS
+        ============================================ -->
+    <script src="~/Scripts/Censor/sparkline/jquery.sparkline.min.js"></script>
+    <script src="~/Scripts/Censor/sparkline/jquery.charts-sparkline.js"></script>
+    <script src="~/Scripts/Censor/sparkline/sparkline-active.js"></script>
+    <!-- calendar JS
+        ============================================ -->
+    <script src="~/Scripts/Censor/calendar/moment.min.js"></script>
+    <script src="~/Scripts/Censor/calendar/fullcalendar.min.js"></script>
+    <script src="~/Scripts/Censor/calendar/fullcalendar-active.js"></script>
+    <!-- plugins JS
+        ============================================ -->
+    <script src="~/Scripts/Censor/plugins.js"></script>
+    <!-- main JS
+        ============================================ -->
+    <script src="~/Scripts/Censor/main.js"></script>
+    <!-- datepicks
+        ============================================ -->
+    <script src="~/Scripts/Censor/datepicker/jquery-ui.min.js"></script>
+    <script src="~/Scripts/Censor/datepicker/datepicker-active.js"></script>
+</body>
+
+</html>

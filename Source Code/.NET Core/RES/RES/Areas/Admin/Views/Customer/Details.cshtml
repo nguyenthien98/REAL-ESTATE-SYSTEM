@@ -1,0 +1,84 @@
+﻿@model RES.Data.DBModels.Customer
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <strong>Thông tin</strong> người dùng
+            </div>
+            <div class="container row">
+                <div class="col-3">
+                    <img class="mt-3 w-100" src="~/images/avatars/@Model.AvatarUrl" />
+                </div>
+                <div class="col-8 card-body card-block ml-4">
+                    <div class="row form-group">
+                        <div class="col-4"><label for="hf-email" class=" form-control-label">Họ và tên</label></div>
+                        <div class="col-8"><b class="text-red">@(Model.LastName + " " + Model.Firstname)</b></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-4"><label for="hf-email" class=" form-control-label">Email</label></div>
+                        <div class="col-8"><b class="text-blue">@Model.Account.UserName</b></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-4"><label for="hf-email" class=" form-control-label">Địa chỉ</label></div>
+                        <div class="col-8">@Model.Address</div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-4"><label for="hf-email" class=" form-control-label">Số điện thoại</label></div>
+                        <div class="col-8"><b>@Model.PhoneNumber</b></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-4"><label for="hf-email" class=" form-control-label">Ngày tạo tài khoản</label></div>
+                        <div class="col-8"><b>@Model.CreatedDate</b></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-4"><label for="hf-email" class=" form-control-label">Ngày cập nhật cuối</label></div>
+                        <div class="col-8"><b>@Model.ModifiedDate</b></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-4"><label for="hf-email" class=" form-control-label">Số bài đăng</label></div>
+                        <div class="col-8"><b>@Model.Post.Count</b></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-4"><label for="hf-email" class=" form-control-label">Số lần bị khóa tài khoản</label></div>
+                        <div class="col-8"><b>@Model.Block.Count</b></div>
+                    </div>
+
+                    @{
+                        if (Model.Block.Count != 0 && (Model.Block.Last().UnBlockDate == null || Model.Block.Last().UnBlockDate > DateTime.Now))
+                        {
+                            <div class="row form-group">
+                                <div class="col-4"><label for="hf-email" class=" form-control-label">Trạng thái</label></div>
+                                <div class="col-8 text-red"><b>Bị khóa</b></div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-4"><label for="hf-email" class=" form-control-label">Lý do bị khóa</label></div>
+                                <div class="col-8">@Model.Block.Last().Reason</div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row form-group">
+                                <div class="col-4"><label for="hf-email" class=" form-control-label">Trạng thái</label></div>
+                                <div class="col-8 text-green"><b>Đang hoạt động</b></div>
+                            </div>
+                        }
+                    }
+
+                </div>
+            </div>
+            <div class="card-footer">
+                <a asp-action="Edit" asp-route-id="@Model.CustomerId" class="btn btn-primary btn-sm">
+                    <i class="fa fa-dot-circle-o"></i> Sửa thông tin
+                </a>
+                <a asp-action="Index" class="btn btn-danger btn-sm">
+                    <i class="fa fa-ban"></i> Quay lại danh sách
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

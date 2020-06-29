@@ -1,0 +1,32 @@
+﻿@using RealEstateWebsite.Models;
+@model List<Project>
+@{
+    Layout = null;
+}
+<div class="featured-section" id="projects">
+    <div class="container">
+        <h4 class="tittle">Our <span>Featured </span> Projects</h4>
+        <div class="content-bottom-in">
+            <ul id="flexiselDemo1">
+                @{ foreach (var item in Model)
+                    {
+                        <li>
+                            <div class="project-fur">
+                                <a href="#" data-toggle="modal" data-target="#myModal1"><img class="img-responsive" src="@(Constants.POST_IMG_URL_PROJECT.ToString() + item.Project_Image.FirstOrDefault().url.ToString())" alt="" /></a>
+                                <div class="fur">
+                                    <div class="fur1">
+                                        <a href="@Url.Action("PostOfProject", "Project", new { @project_id = item.Project_ID })"><span style="text-align:center" class="fur-money">@item.ProjectName</span></a>
+                                        <h6 style="text-align:center" class="fur-name"><a>@item.Location</a></h6>
+                                    </div>
+                                    <div class="fur2">
+                                        <span>@item.ModifiedDate</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</div>

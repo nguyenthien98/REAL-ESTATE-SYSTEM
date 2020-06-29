@@ -1,0 +1,107 @@
+﻿@model RealEstateWebsite.Models.Customer_Report
+
+
+
+<!-- forms CSS
+        ============================================ -->
+<link rel="stylesheet" href="~/Content/Censor/form/all-type-forms.css">
+<!-- dropzone CSS
+    ============================================ -->
+<link rel="stylesheet" href="~/Content/Censor/dropzone/dropzone.css">
+
+
+<script>
+    var urlApprove = '/Censor/Customer/Block';
+    $(function () {
+        $("#btnSubmit").click(function () {
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('data-id');
+            $.ajax({
+                type: "GET",
+                url: urlApprove,
+                contentType: "application/html; charset=utf-8",
+                data: { "post_ID": id },
+                datatype: "text",
+                success: function (data) {
+                    if (data == "1") {
+                        $('#PrimaryModalalert').modal('hide');
+                        $("#newcustomertable").load(location.href + " #newcustomertable>*", "");
+                        Lobibox.notify('success', {
+                            msg: 'Approve POST successed!'
+                        });
+                    } else {
+                        Lobibox.notify('error', {
+                            msg: 'Approve POST failed! Please try again.'
+                        });
+                    }
+                },
+                error: function () {
+                    Lobibox.notify('error', {
+                        msg: 'Approve POST failed! Please try again.'
+                    });
+                }
+            });
+        });
+
+
+</script>
+<div class="single-pro-review-area mt-t-30 mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="product-payment-inner-st">
+                    <ul id="myTabedu1" class="tab-review-design">
+                        <li class="active"><a href="#description">Basic Information</a></li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content custom-product-edit">
+                        <div class="product-tab-list tab-pane fade active in" id="description">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="review-content-section">
+                                        <div id="dropzone1" class="pro-ad">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            @Html.TextBoxFor(n => n.Reason, htmlAttributes: new { @name = "Reason", @class = "form-control", @placeholder = "Reason" })
+                                                           
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="payment-adress">
+                                                        <button type="submit" data-id="@Model.Customer_Report_ID" class="btn btn-primary waves-effect waves-light btnSubmit">Block</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- maskedinput JS
+        ============================================ -->
+<script src="~/Scripts/Censor/jquery.maskedinput.min.js"></script>
+<script src="~/Scripts/Censor/masking-active.js"></script>
+<!-- datepicker JS
+    ============================================ -->
+<script src="~/Scripts/Censor/datepicker/jquery-ui.min.js"></script>
+<script src="~/Scripts/Censor/datepicker/datepicker-active.js"></script>
+<!-- form validate JS
+    ============================================ -->
+<script src="~/Scripts/Censor/form-validation/jquery.form.min.js"></script>
+<script src="~/Scripts/Censor/form-validation/jquery.validate.min.js"></script>
+<script src="~/Scripts/Censor/form-validation/form-active.js"></script>
+<!-- tab JS
+    ============================================ -->
+<script src="~/Scripts/Censor/tab.js"></script>

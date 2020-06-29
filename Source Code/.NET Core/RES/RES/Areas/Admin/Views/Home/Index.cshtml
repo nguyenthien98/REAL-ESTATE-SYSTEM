@@ -1,0 +1,329 @@
+﻿@using RES.Areas.Admin.Models
+@model HomeDataModel
+
+@{
+    ViewData["Title"] = "Dashboard | Admin BDS Miền Trung";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="apple-touch-icon" href="apple-icon.png">
+<link rel="shortcut icon" href="favicon.ico">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+<div class="content mt-3">
+
+    <div class="col-sm-12 mb-4">
+        <div class="card-group">
+            <div class="card col-md-6 no-padding ">
+                <div class="card-body">
+                    <div class="h1 text-muted text-right mb-4">
+                        <i class="fa fa-sign-in"></i>
+                    </div>
+
+                    <div class="h4 mb-0">
+                        <span class="count">@Model.totalGuest</span>
+                    </div>
+
+                    <small class="text-muted text-uppercase font-weight-bold">Truy cập website</small>
+                    <div class="progress progress-xs mt-3 mb-0 bg-flat-color-1" style="width: 40%; height: 5px;"></div>
+                </div>
+            </div>
+            <div class="card col-md-6 no-padding ">
+                <div class="card-body">
+                    <div class="h1 text-muted text-right mb-4">
+                        <i class="fa fa-user-plus"></i>
+                    </div>
+                    <div class="h4 mb-0">
+                        <span class="count">@Model.totalNewUser</span>
+                    </div>
+                    <small class="text-muted text-uppercase font-weight-bold">Người dùng mới</small>
+                    <div class="progress progress-xs mt-3 mb-0 bg-flat-color-2" style="width: 40%; height: 5px;"></div>
+                </div>
+            </div>
+            <div class="card col-md-6 no-padding ">
+                <div class="card-body">
+                    <div class="h1 text-muted text-right mb-4">
+                        <i class="fa fa-users"></i>
+                    </div>
+                    <div class="h4 mb-0">
+                        <span class="count">@Model.totalUser</span>
+                    </div>
+                    <small class="text-muted text-uppercase font-weight-bold">Người dùng</small>
+                    <div class="progress progress-xs mt-3 mb-0 bg-flat-color-3" style="width: 40%; height: 5px;"></div>
+                </div>
+            </div>
+            <div class="card col-md-6 no-padding ">
+                <div class="card-body">
+                    <div class="h1 text-muted text-right mb-4">
+                        <i class="fa fa-meh-o"></i>
+                    </div>
+                    <div class="h4 mb-0">@Model.totalBlockedUser</div>
+                    <small class="text-muted text-uppercase font-weight-bold">Người dùng bị khóa</small>
+                    <div class="progress progress-xs mt-3 mb-0 bg-flat-color-5" style="width: 40%; height: 5px;"></div>
+                </div>
+            </div>
+            <div class="card col-md-6 no-padding ">
+                <div class="card-body">
+                    <div class="h1 text-muted text-right mb-4">
+                        <i class="fa fa-th-list"></i>
+                    </div>
+                    <div class="h4 mb-0">
+                        <span class="count">@Model.totalPost</span>
+                    </div>
+                    <small class="text-muted text-uppercase font-weight-bold">Bài đăng</small>
+                    <div class="progress progress-xs mt-3 mb-0 bg-flat-color-4" style="width: 40%; height: 5px;"></div>
+                </div>
+            </div>
+            <div class="card col-md-6 no-padding ">
+                <div class="card-body">
+                    <div class="h1 text-muted text-right mb-4">
+                        <i class="fa fa-money"></i>
+                    </div>
+                    <div class="h4 mb-0">
+                        <span class="count">@Model.totalSellingPost</span>
+                    </div>
+                    <small class="text-muted text-uppercase font-weight-bold">Bài đăng đang bán</small>
+                    <div class="progress progress-xs mt-3 mb-0 bg-flat-color-1" style="width: 40%; height: 5px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="social-box facebook">
+            <i class="fa fa-facebook"></i>
+            <ul>
+                <strong><span class="count">@Model.totalFBClick</span></strong>
+                <span>lượt ghé thăm</span>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="col-lg-3 col-md-6">
+        <div class="social-box twitter">
+            <i class="fa fa-twitter"></i>
+            <ul>
+                <strong><span class="count">@Model.totalTwiClick</span></strong>
+                <span>lượt ghé thăm</span>
+            </ul>
+        </div>
+        <!--/social-box-->
+    </div><!--/.col-->
+
+
+    <div class="col-lg-3 col-md-6">
+        <div class="social-box linkedin">
+            <i class="fa fa-linkedin"></i>
+            <ul>
+                <strong><span class="count">@Model.totalLinClick</span></strong>
+                <span>lượt ghé thăm</span>
+            </ul>
+        </div>
+        <!--/social-box-->
+    </div><!--/.col-->
+
+
+    <div class="col-lg-3 col-md-6">
+        <div class="social-box google-plus">
+            <i class="fa fa-instagram"></i>
+            <ul>
+                <strong><span class="count">@Model.totalInsClick</span></strong>
+                <span>lượt ghé thăm</span>
+            </ul>
+        </div>
+        <!--/social-box-->
+    </div><!--/.col-->
+
+    <div class="col-xl-8">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h4 class="card-title mb-0">Biểu đồ thống kê</h4>
+                        <div class="small text-muted">@DateTime.Now.ToString("MMMM yyyy")</div>
+                    </div>
+
+
+                </div><!--/.row-->
+                <div class="chart-wrapper mt-4">
+                    <iframe class="chartjs-hidden-iframe" tabindex="-1" style="display: block; overflow: hidden; border: 0px; margin: 0px; top: 0px; left: 0px; bottom: 0px; right: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;"></iframe>
+                    <canvas id="trafficChart" style="height: 256px; display: block; width: 384px;" height="320" width="480"></canvas>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4 col-lg-12">
+        <section class="card">
+            <div class="twt-feed blue-bg">
+                <div class="corner-ribon black-ribon">
+                    <i class="fa fa-twitter"></i>
+                </div>
+                <div class="fa fa-twitter wtt-mark"></div>
+
+                <div class="media">
+                    <a href="#">
+                        <img class="align-self-center rounded-circle mr-3" style="width:85px; height:85px;" alt="" src="images/admin.jpg">
+                    </a>
+                    <div class="media-body">
+                        <h2 class="text-white display-6">@Model.customer.fullName</h2>
+                        <p class="text-light">Real Estate Agent</p>
+                    </div>
+                </div>
+            </div>
+            <div class="weather-category twt-category">
+                <ul>
+                    <li class="active">
+                        <h5>@Model.customer.totalPosts</h5>
+                        Bài đăng
+                    </li>
+                    <li>
+                        <h5>@Model.customer.totalSoldPosts</h5>
+                        Bài đăng đã bán
+                    </li>
+                    <li>
+                        <h5>@Model.customer.totalSellingPosts</h5>
+                        Bài đăng đang bán
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script src="assets/js/lib/chart-js/Chart.bundle.js"></script>
+<script src="assets/js/dashboard.js"></script>
+<script src="assets/js/widgets.js"></script>
+<script src="assets/js/lib/vector-map/jquery.vmap.js"></script>
+<script src="assets/js/lib/vector-map/jquery.vmap.min.js"></script>
+<script src="assets/js/lib/vector-map/jquery.vmap.sampledata.js"></script>
+<script src="assets/js/lib/vector-map/country/jquery.vmap.world.js"></script>
+
+<script>
+    (function ($) {
+        "use strict";
+
+        jQuery('#vmap').vectorMap({
+            map: 'world_en',
+            backgroundColor: null,
+            color: '#ffffff',
+            hoverOpacity: 0.7,
+            selectedColor: '#1de9b6',
+            enableZoom: true,
+            showTooltip: true,
+            values: sample_data,
+            scaleColors: ['#1de9b6', '#03a9f5'],
+            normalizeFunction: 'polynomial'
+        });
+    })(jQuery);
+    (function ($) {
+        "use strict";
+
+
+        // const brandPrimary = '#20a8d8'
+        const brandSuccess = '#4dbd74';
+        const brandInfo = '#63c2de';
+        const brandDanger = '#f86c6b';
+
+        function convertHex(hex, opacity) {
+            hex = hex.replace('#', '');
+            const r = parseInt(hex.substring(0, 2), 16);
+            const g = parseInt(hex.substring(2, 4), 16);
+            const b = parseInt(hex.substring(4, 6), 16);
+
+            const result = 'rgba(' + r + ',' + g + ',' + b + ',' + opacity / 100 + ')';
+            return result;
+        }
+
+        function random(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+
+        var elements = 27;
+        var data1 = @Html.Raw(Json.Serialize(Model.chart.lstNewUsers));
+        var data2 = @Html.Raw(Json.Serialize(Model.chart.lstNewPosts));
+        var data3 = @Html.Raw(Json.Serialize(Model.chart.lstNewRealPosts));
+        var labels = [];
+
+        for (var i = 1; i <= @Model.chart.totalDayOfMonth; i++) {
+            labels.push(i);
+        }
+
+
+        //Traffic Chart
+        var ctx = document.getElementById("trafficChart");
+        ctx.height = 200;
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Người dùng mới',
+                        backgroundColor: 'transparent',
+                        borderColor: brandDanger,
+                        pointHoverBackgroundColor: '#fff',
+                        borderWidth: 2,
+                        data: data1
+                    },
+                    {
+                        label: 'Bài đăng mới',
+                        backgroundColor: convertHex(brandInfo, 10),
+                        borderColor: brandSuccess,
+                        pointHoverBackgroundColor: '#fff',
+                        borderWidth: 2,
+                        data: data2
+                    },
+                    {
+                        label: 'Bài đăng thực',
+                        backgroundColor: 'transparent',
+                        borderColor: brandInfo,
+                        pointHoverBackgroundColor: 'red',
+                        borderWidth: 2,
+                        data: data3
+                    }
+                ]
+            },
+            options: {
+                maintainAspectRatio: true,
+                legend: {
+                    display: false
+                },
+                responsive: true,
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            drawOnChartArea: false
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            maxTicksLimit: 5,
+                            stepSize: Math.ceil(10 / 5),
+                            max: 10
+                        },
+                        gridLines: {
+                            display: true
+                        }
+                    }]
+                },
+                elements: {
+                    point: {
+                        radius: 0,
+                        hitRadius: 10,
+                        hoverRadius: 4,
+                        hoverBorderWidth: 3
+                    }
+                }
+
+
+            }
+        });
+
+
+    })(jQuery);
+</script>

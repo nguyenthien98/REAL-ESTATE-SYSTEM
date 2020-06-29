@@ -1,0 +1,225 @@
+﻿@using RealEstateWebsite.Models
+@model List<Post>
+
+
+@{
+    ViewBag.Title = "All Posts | Real Estate System";
+    Layout = "~/Areas/Censor/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/Censor/modals.css" rel="stylesheet" />
+<link href="~/Content/Censor/buttons.css" rel="stylesheet" />
+<link href="~/Content/Censor/slideshow.css" rel="stylesheet" />
+<link href="~/Content/Censor/form/all-type-forms.css" rel="stylesheet" />
+
+
+<div class="breadcome-area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="breadcome-list">
+                    <div class="row">
+                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                            <div class="breadcome-heading">
+                                <form action="@Url.Action("Search", "Post")">
+                                    <div class="row">
+                                        <div class="col-xs-7 col-sm-7 col-md-7 col-lg-3" style="padding-bottom: 10px">
+                                            <select id="typeOfPost" name="typeOfPost" class="form-control" style="width: 100%">
+                                                <option value="0">Chọn tất cả</option>
+                                                <option value="1">Cần Bán</option>
+                                                <option value="11">Cần Mua</option>
+                                                <option value="2">Cần Cho Thuê</option>
+                                                <option value="12">Cần Thuê</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-3">
+                                            <select id="typeOfRE" name="typeOfRE" class="form-control" style="width: 100%">
+                                                <option value="0">Chọn tất cả</option>
+                                                <option value="1">Nhà</option>
+                                                <option value="2">Đất</option>
+                                                <option value="3">Căn Hộ</option>
+                                                <option value="4">Mặt Bằng</option>
+                                                <option value="5">Kho Xưởng</option>
+                                                <option value="10">Khác</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-4">
+                                            <input name="date" id="finish" type="text" class="form-control" value="@( ViewBag.Date ?? DateTime.Now.ToString("dd/M/yyyy").Replace("/", "."))" style="width:100%">
+                                        </div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2">
+                                            <div role="search" class="sr-input-func" style="width: 100%">
+                                                <button type="submit" class="btn btn-custon-rounded-three btn-primary btn-md" style="width: 100%">Search</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                            <ul class="breadcome-menu">
+                                <li>
+                                    @Html.ActionLink("Home", "Index", "Home") <span class="bread-slash">/</span>
+                                </li>
+                                <li>
+                                    <span class="bread-blod">All Posts</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Static Table Start -->
+<div class="static-table-area">
+    <div class="container-fluid">
+        <div class="row" style="padding-bottom: 30px">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="sparkline8-list">
+                    <div class="sparkline8-hd">
+                        <div class="main-sparkline8-hd">
+                            <h1>New Posts Table</h1>
+                        </div>
+                    </div>
+                    <div class="sparkline8-graph">
+                        <div class="static-table-list" id="newPostTable">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>ID</th>
+                                        <th>Tittle</th>
+                                        <th>Poster</th>
+                                        <th>Post Time</th>
+                                        <th>Type</th>
+                                        <th>Price</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        for (int i = 0; i < Model.Count; i++)
+                                        {
+                                            <tr>
+                                                <td>@(i + 1)</td>
+                                                <td>@Model[i].Post_ID</td>
+                                                <td>@Model[i].Tittle</td>
+                                                @if (Model[i].Customer != null)
+                                                {
+                                                    <td>@Model[i].Customer.LastName @Model[i].Customer.Firstname</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>@Model[i].Employee.FullName</td>
+                                                }
+                                                <td>@Model[i].PostTime</td>
+                                                <td>@Model[i].Type1.Name @Model[i].RealEstateType.Name</td>
+                                                <td>@String.Format("{0:0,0 VND}", Model[i].Price)</td>
+
+                                                <td>
+                                                    <div class="modal-area-button">
+                                                        <button type="button" class="btn btn-custon-rounded-three btn-primary btn-xs btnSubmit" data-id="@Model[i].Post_ID" data-toggle="modal" data-target="#PrimaryModalalert">Details</button>
+                                                        @if (Model[i].Post_Status.LastOrDefault().Status.Status_ID != 4)
+                                                        {
+                                                            <button type="button" class="btn btn-custon-rounded-three btn-danger btn-xs btnblock" data-id="@Model[i].Post_ID">Block</button>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="text-success" style="padding-left: 5px">Blocked</span>
+                                                        }
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Static Table End -->
+<!-- Details Post -->
+<div id="PrimaryModalalert" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+    <div class="modal-dialog">
+        <div id="modal-content" class="modal-content"></div>
+    </div>
+</div>
+
+
+<script>
+    var typeOfPost = '@ViewBag.TypeOfPost';
+    $(function () {
+        if (typeOfPost !== null && typeOfPost !== "") {
+            $("#typeOfPost").val(typeOfPost);
+        }
+    });
+
+    var typeOfRE = '@ViewBag.TypeOfRE';
+    $(function () {
+        if (typeOfRE !== null && typeOfRE !== "") {
+            $("#typeOfRE").val(typeOfRE);
+        }
+    });
+
+
+    var TeamDetailPostBackURL = '/Censor/Post/Details';
+    $(function () {
+        $(".btnSubmit").click(function () {
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('data-id');
+            $.ajax({
+                type: "GET",
+                url: TeamDetailPostBackURL,
+                contentType: "application/html; charset=utf-8",
+                data: { "post_ID": id, "type": "all" },
+                datatype: "html",
+                success: function (data) {
+                    $('#modal-content').html(data);
+                    $('#PrimaryModalalert').modal('show');
+                },
+                error: function () {
+                    alert("Error: Get details of this Post failed. Please try again!");
+                }
+            });
+        });
+    });
+
+    var blockURL = '/Censor/Post/BlockPost';
+    $(document).on('click', '.btnblock', function () {
+        var $buttonClicked = $(this);
+        if (confirm("Block this Customer ?")) {
+            var id = $buttonClicked.attr('data-id');
+            $.ajax({
+                type: "GET",
+                url: blockURL,
+                contentType: "application/html; charset=utf-8",
+                data: { "post_ID": id },
+                datatype: "html",
+                success: function (data) {
+                    if (data == "1") {
+                        $('#PrimaryModalalert1').modal('hide');
+                        $("#newPostTable").load(location.href + " #newPostTable>*", "");
+                        Lobibox.notify('success', {
+                            msg: 'Block POST successed!'
+                        });
+                    } else {
+                        Lobibox.notify('error', {
+                            msg: 'Block POST failed! Please try again.'
+                        });
+                    }
+                },
+                error: function () {
+                    Lobibox.notify('error', {
+                        msg: 'Block POST failed! Please try again.'
+                    });
+                }
+            });
+        }
+    });
+</script>

@@ -1,0 +1,132 @@
+﻿
+@model RealEstateWebsite.Models.Post_Report
+
+<link href="~/Content/Censor/slideshow.css" rel="stylesheet" />
+<link href="~/Content/Censor/notifications/Lobibox.min.css" rel="stylesheet" />
+<link href="~/Content/Censor/notifications/notifications.css" rel="stylesheet" />
+
+
+<script src="~/Scripts/Censor/notifications/notification-active.js"></script>
+<script src="~/Scripts/Censor/notifications/Lobibox.js"></script>
+<script>
+    var urlConfirmBlockReport = '/Censor/Post/ConfirmBlockReport';
+
+    $("#btnConfirmBlockReport").click(function () {
+        var $buttonClicked = $(this);
+        var id = $buttonClicked.attr('data-id');
+        $.ajax({
+            type: "GET",
+            url: urlConfirmBlockReport,
+            contentType: "application/html; charset=utf-8",
+            data: { "postReport_ID": id },
+            datatype: "html",
+            success: function (data) {
+                if (data == "1") {
+                    $('#PrimaryModalalert').modal('hide');
+                    $("#ReportPostsTable").load(location.href + " #ReportedPostsTable>*", "");
+                    Lobibox.notify('success', {
+                        msg: 'BLOCK POST successed!'
+                    });
+                } else {
+                    Lobibox.notify('error', {
+                        msg: 'BLOCK POST failed! Please try again.'
+                    });
+                }
+            },
+            error: function () {
+                Lobibox.notify('error', {
+                    msg: 'BLOCK POST failed! Please try again.'
+                });
+            }
+        });
+    });
+
+    var urlDeleteReport = '/Censor/Post/DeleteBlockReport';
+
+    $("#btnDeleteReport").click(function () {
+        var $buttonClicked = $(this);
+        var id = $buttonClicked.attr('data-id');
+        $.ajax({
+            type: "GET",
+            url: urlDeleteReport,
+            contentType: "application/html; charset=utf-8",
+            data: { "postReport_ID": id },
+            datatype: "html",
+            success: function (data) {
+                if (data == "1") {
+                    $('#PrimaryModalalert').modal('hide');
+                    $("#ReportPostsTable").load(location.href + " #ReportedPostsTable>*", "");
+                    Lobibox.notify('success', {
+                        msg: 'DELETE REPORT successed!'
+                    });
+                } else {
+                    Lobibox.notify('error', {
+                        msg: 'DELETE REPORT failed! Please try again.'
+                    });
+                }
+            },
+            error: function () {
+                Lobibox.notify('error', {
+                    msg: 'DELETE REPORT failed! Please try again.'
+                });
+            }
+        });
+    });
+
+</script>
+<script src="~/Scripts/Censor/slideshow.js"></script>
+
+
+
+<div class="modal-close-area modal-close-df">
+    <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+</div>
+<div class="slideshow-container" style="width:70%">
+    @for (int i = 0; i < Model.Post.Post_Image.Count; i++)
+    {
+        <div class="mySlides1">
+            <img src="~/Images/Post/@Model.Post.Post_Image.ToList()[i].url">
+        </div>
+    }
+
+    <a class="prev" onclick="plusSlides(-1, 0)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1, 0)">&#10095;</a>
+</div>
+<div class="sparkline8-list">
+    <table class="table">
+        <tbody>
+            <tr>
+                <td>Post ID: </td>
+                <td>@Model.Post.Post_ID</td>
+            </tr>
+            @*<tr>
+                    <td>Post Report </td>
+                    <td>@Model.Customer.Post_Report</td>
+                </tr>*@
+            <tr>
+                <td>Poster: </td>
+                @if (Model.Customer != null)
+                {
+                    <td>@Model.Customer.LastName @Model.Customer.Firstname</td>
+                }
+                else
+                {
+                    <td>@Model.Employee.FullName</td>
+                }
+            </tr>
+            <tr>
+                <td>Report Time: </td>
+                <td>@Model.Report_Time</td>
+            </tr>
+            <tr>
+                <td>Reason: </td>
+                <td>@Model.Reason</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">
+    <button type="button" id="btnConfirmBlockReport" data-id="@Model.Post_Report_ID" class="btn btn-custon-rounded-four btn-danger" data-toggle="modal">Block Post</button>
+    <button type="button" id="btnDeleteReport" class="btn btn-custon-rounded-four btn-primary" data-id="@Model.Post_Report_ID" data-toggle="modal">Delete Report</button>
+    <button type="button" data-dismiss="modal" class="btn btn-custon-rounded-four btn-default">Cancel</button>
+</div>

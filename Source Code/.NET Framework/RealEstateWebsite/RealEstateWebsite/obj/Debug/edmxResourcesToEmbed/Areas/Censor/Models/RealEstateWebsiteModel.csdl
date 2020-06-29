@@ -1,0 +1,928 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RealEstateWebsiteModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="Account_ID" />
+    </Key>
+    <Property Name="Account_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="IsSuperAdmin" Type="Boolean" />
+    <NavigationProperty Name="AccountLogs" Relationship="Self.FK_AccountLog_Account" FromRole="Account" ToRole="AccountLog" />
+    <NavigationProperty Name="Customers" Relationship="Self.FK_Customer_Account" FromRole="Account" ToRole="Customer" />
+    <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Account" FromRole="Account" ToRole="Employee" />
+    <NavigationProperty Name="Role_Account" Relationship="Self.FK_Role_Account_Account" FromRole="Account" ToRole="Role_Account" />
+  </EntityType>
+  <EntityType Name="AccountLog">
+    <Key>
+      <PropertyRef Name="Log_ID" />
+    </Key>
+    <Property Name="Account_ID" Type="Int32" />
+    <Property Name="Log_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Account" Relationship="Self.FK_AccountLog_Account" FromRole="AccountLog" ToRole="Account" />
+  </EntityType>
+  <EntityType Name="Permission">
+    <Key>
+      <PropertyRef Name="Permission_ID" />
+    </Key>
+    <Property Name="Permission_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PermissionTittle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PermissionConstantName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Permission_Role" Relationship="Self.FK_Permission_Role_Permission" FromRole="Permission" ToRole="Permission_Role" />
+  </EntityType>
+  <EntityType Name="Permission_Role">
+    <Key>
+      <PropertyRef Name="Role_ID" />
+      <PropertyRef Name="Permission_ID" />
+    </Key>
+    <Property Name="Role_ID" Type="Int32" Nullable="false" />
+    <Property Name="Permission_ID" Type="Int32" Nullable="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Permission" Relationship="Self.FK_Permission_Role_Permission" FromRole="Permission_Role" ToRole="Permission" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_Permission_Role_Role" FromRole="Permission_Role" ToRole="Role" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Role_ID" />
+    </Key>
+    <Property Name="Role_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Role_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Permission_Role" Relationship="Self.FK_Permission_Role_Role" FromRole="Role" ToRole="Permission_Role" />
+    <NavigationProperty Name="Role_Account" Relationship="Self.FK_Role_Account_Role" FromRole="Role" ToRole="Role_Account" />
+  </EntityType>
+  <EntityType Name="Role_Account">
+    <Key>
+      <PropertyRef Name="Account_ID" />
+      <PropertyRef Name="Role_ID" />
+    </Key>
+    <Property Name="Account_ID" Type="Int32" Nullable="false" />
+    <Property Name="Role_ID" Type="Int32" Nullable="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Account" Relationship="Self.FK_Role_Account_Account" FromRole="Role_Account" ToRole="Account" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_Role_Account_Role" FromRole="Role_Account" ToRole="Role" />
+  </EntityType>
+  <EntityType Name="Block">
+    <Key>
+      <PropertyRef Name="Block_ID" />
+    </Key>
+    <Property Name="Cus_ID" Type="Int32" Nullable="false" />
+    <Property Name="Block_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Reason" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="BlockDate" Type="DateTime" Precision="3" />
+    <Property Name="UnBlockDate" Type="DateTime" Precision="3" />
+    <Property Name="Emp_Block" Type="Int32" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Block_Customer" FromRole="Block" ToRole="Customer" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Block_Employee" FromRole="Block" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Customer_ID" />
+    </Key>
+    <Property Name="Customer_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Firstname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Avatar_URL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Block_ID" Type="Int32" />
+    <Property Name="Customer_Type" Type="Int32" />
+    <Property Name="Account_ID" Type="Int32" Nullable="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Account" Relationship="Self.FK_Customer_Account" FromRole="Customer" ToRole="Account" />
+    <NavigationProperty Name="Blocks" Relationship="Self.FK_Block_Customer" FromRole="Customer" ToRole="Block" />
+    <NavigationProperty Name="Customer_Report" Relationship="Self.FK_Customer_Report_Customer" FromRole="Customer" ToRole="Customer_Report" />
+    <NavigationProperty Name="Customer_Report1" Relationship="Self.FK_Customer_Report_Customer1" FromRole="Customer" ToRole="Customer_Report" />
+    <NavigationProperty Name="Type" Relationship="Self.FK_Customer_Type" FromRole="Customer" ToRole="Type" />
+    <NavigationProperty Name="Interested_Post" Relationship="Self.FK_Interested_Post_Customer" FromRole="Customer" ToRole="Interested_Post" />
+    <NavigationProperty Name="PhoneNumbers" Relationship="Self.FK_PhoneNumber_Customer" FromRole="Customer" ToRole="PhoneNumber" />
+    <NavigationProperty Name="Post_Customer" Relationship="Self.FK_Post_Customer_Customer" FromRole="Customer" ToRole="Post_Customer" />
+    <NavigationProperty Name="Post_Report" Relationship="Self.FK_Post_Report_Customer" FromRole="Customer" ToRole="Post_Report" />
+    <NavigationProperty Name="Promotions" Relationship="Self.FK_Promotion_Customer" FromRole="Customer" ToRole="Promotion" />
+  </EntityType>
+  <EntityType Name="Customer_Report">
+    <Key>
+      <PropertyRef Name="Customer_Report_ID" />
+    </Key>
+    <Property Name="Customer_Report_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Customer_ID" Type="Int32" Nullable="false" />
+    <Property Name="Reason" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ReportDate" Type="DateTime" Precision="3" />
+    <Property Name="Reporter" Type="Int32" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Customer_Report_Customer" FromRole="Customer_Report" ToRole="Customer" />
+    <NavigationProperty Name="Customer1" Relationship="Self.FK_Customer_Report_Customer1" FromRole="Customer_Report" ToRole="Customer" />
+  </EntityType>
+  <EntityType Name="Interested_Post">
+    <Key>
+      <PropertyRef Name="Customer_ID" />
+      <PropertyRef Name="Post_ID" />
+    </Key>
+    <Property Name="Customer_ID" Type="Int32" Nullable="false" />
+    <Property Name="Post_ID" Type="Int32" Nullable="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Interested_Post_Customer" FromRole="Interested_Post" ToRole="Customer" />
+    <NavigationProperty Name="Post" Relationship="Self.FK_Interested_Post_Post" FromRole="Interested_Post" ToRole="Post" />
+  </EntityType>
+  <EntityType Name="PhoneNumber">
+    <Key>
+      <PropertyRef Name="Customer_ID" />
+      <PropertyRef Name="PhoneNumber1" />
+    </Key>
+    <Property Name="Customer_ID" Type="Int32" Nullable="false" />
+    <Property Name="PhoneNumber1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_PhoneNumber_Customer" FromRole="PhoneNumber" ToRole="Customer" />
+  </EntityType>
+  <EntityType Name="Post_Customer">
+    <Key>
+      <PropertyRef Name="Customer_ID" />
+      <PropertyRef Name="Post_ID" />
+    </Key>
+    <Property Name="Customer_ID" Type="Int32" Nullable="false" />
+    <Property Name="Post_ID" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Post_Customer_Customer" FromRole="Post_Customer" ToRole="Customer" />
+    <NavigationProperty Name="Post" Relationship="Self.FK_Post_Customer_Post" FromRole="Post_Customer" ToRole="Post" />
+  </EntityType>
+  <EntityType Name="Promotion">
+    <Key>
+      <PropertyRef Name="Promotion_ID" />
+    </Key>
+    <Property Name="Promotion_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Promotion_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Creator" Type="Int32" Nullable="false" />
+    <Property Name="Sale" Type="Int32" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Promotion_Customer" FromRole="Promotion" ToRole="Customer" />
+    <NavigationProperty Name="Promotion_Detail" Relationship="Self.FK_Promotion_Detail_Promotion" FromRole="Promotion" ToRole="Promotion_Detail" />
+  </EntityType>
+  <EntityType Name="Promotion_Detail">
+    <Key>
+      <PropertyRef Name="Promotion_ID" />
+      <PropertyRef Name="Post_ID" />
+    </Key>
+    <Property Name="Promotion_ID" Type="Int32" Nullable="false" />
+    <Property Name="Post_ID" Type="Int32" Nullable="false" />
+    <Property Name="AddedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Promotion" Relationship="Self.FK_Promotion_Detail_Promotion" FromRole="Promotion_Detail" ToRole="Promotion" />
+    <NavigationProperty Name="Post" Relationship="Self.FK_Promotion_Detail_Post" FromRole="Promotion_Detail" ToRole="Post" />
+  </EntityType>
+  <EntityType Name="Type">
+    <Key>
+      <PropertyRef Name="Type_ID" />
+    </Key>
+    <Property Name="Type_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Customers" Relationship="Self.FK_Customer_Type" FromRole="Type" ToRole="Customer" />
+  </EntityType>
+  <EntityType Name="DatabaseLog">
+    <Key>
+      <PropertyRef Name="DatabaseLogID" />
+    </Key>
+    <Property Name="DatabaseLogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PostTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DatabaseUser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Event" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Schema" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Object" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="TSQL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="XmlEvent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ErrorLog">
+    <Key>
+      <PropertyRef Name="ErrorLogID" />
+    </Key>
+    <Property Name="ErrorLogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ErrorTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UserName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ErrorNumber" Type="Int32" Nullable="false" />
+    <Property Name="ErrorSeverity" Type="Int32" />
+    <Property Name="ErrorState" Type="Int32" />
+    <Property Name="ErrorProcedure" Type="String" MaxLength="126" FixedLength="false" Unicode="true" />
+    <Property Name="ErrorLine" Type="Int32" />
+    <Property Name="ErrorMessage" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Block1">
+    <Key>
+      <PropertyRef Name="Block_ID" />
+    </Key>
+    <Property Name="Emp_ID" Type="Int32" Nullable="false" />
+    <Property Name="Block_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Reason" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="BlockDate" Type="DateTime" Precision="3" />
+    <Property Name="UnBlockDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Block_Employee1" FromRole="Block1" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="Employee_ID" />
+    </Key>
+    <Property Name="Employee_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IDNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Avatar_URL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Manager_ID" Type="Int32" />
+    <Property Name="Account_ID" Type="Int32" Nullable="false" />
+    <Property Name="Block_ID" Type="Int32" />
+    <Property Name="Quit_ID" Type="Int32" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Account" Relationship="Self.FK_Employee_Account" FromRole="Employee" ToRole="Account" />
+    <NavigationProperty Name="Blocks" Relationship="Self.FK_Block_Employee" FromRole="Employee" ToRole="Block" />
+    <NavigationProperty Name="Block1" Relationship="Self.FK_Block_Employee1" FromRole="Employee" ToRole="Block1" />
+    <NavigationProperty Name="Employee1" Relationship="Self.FK_Employee_Employee" FromRole="Employee" ToRole="Employee1" />
+    <NavigationProperty Name="Employee2" Relationship="Self.FK_Employee_Employee" FromRole="Employee1" ToRole="Employee" />
+    <NavigationProperty Name="Post_Status" Relationship="Self.FK_Post_Status_Employee" FromRole="Employee" ToRole="Post_Status" />
+    <NavigationProperty Name="Quits" Relationship="Self.FK_Quit_Employee" FromRole="Employee" ToRole="Quit" />
+  </EntityType>
+  <EntityType Name="Quit">
+    <Key>
+      <PropertyRef Name="Quit_ID" />
+    </Key>
+    <Property Name="Emp_ID" Type="Int32" Nullable="false" />
+    <Property Name="Quit_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Reason" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="QuitDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Quit_Employee" FromRole="Quit" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Detail">
+    <Key>
+      <PropertyRef Name="Detail_ID" />
+    </Key>
+    <Property Name="Detail_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Post_ID" Type="Int32" />
+    <Property Name="Floor" Type="Int32" />
+    <Property Name="Bedroom" Type="Int32" />
+    <Property Name="Bathroom" Type="Int32" />
+    <Property Name="Direction" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Alley" Type="Boolean" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Post" Relationship="Self.FK_Detail_Post" FromRole="Detail" ToRole="Post" />
+  </EntityType>
+  <EntityType Name="Post">
+    <Key>
+      <PropertyRef Name="Post_ID" />
+    </Key>
+    <Property Name="Post_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PostType" Type="Int32" Nullable="false" />
+    <Property Name="PostTime" Type="DateTime" Precision="3" />
+    <Property Name="Tittle" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="Location" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Area" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Project" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="RealEstaleType" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int32" />
+    <NavigationProperty Name="Interested_Post" Relationship="Self.FK_Interested_Post_Post" FromRole="Post" ToRole="Interested_Post" />
+    <NavigationProperty Name="Post_Customer" Relationship="Self.FK_Post_Customer_Post" FromRole="Post" ToRole="Post_Customer" />
+    <NavigationProperty Name="Promotion_Detail" Relationship="Self.FK_Promotion_Detail_Post" FromRole="Post" ToRole="Promotion_Detail" />
+    <NavigationProperty Name="Details" Relationship="Self.FK_Detail_Post" FromRole="Post" ToRole="Detail" />
+    <NavigationProperty Name="Post_Image" Relationship="Self.FK_Post_Image_Post" FromRole="Post" ToRole="Post_Image" />
+    <NavigationProperty Name="Type1" Relationship="Self.FK_Post_PostType" FromRole="Post" ToRole="Type1" />
+    <NavigationProperty Name="Project1" Relationship="Self.FK_Post_Project" FromRole="Post" ToRole="Project" />
+    <NavigationProperty Name="RealEstateType" Relationship="Self.FK_Post_RealEstaleType" FromRole="Post" ToRole="RealEstateType" />
+    <NavigationProperty Name="Post_Report" Relationship="Self.FK_Post_Report_Post" FromRole="Post" ToRole="Post_Report" />
+    <NavigationProperty Name="Post_Status" Relationship="Self.FK_Post_Status_Post" FromRole="Post" ToRole="Post_Status" />
+  </EntityType>
+  <EntityType Name="Post_Image">
+    <Key>
+      <PropertyRef Name="Image_ID" />
+    </Key>
+    <Property Name="Image_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Post_ID" Type="Int32" />
+    <Property Name="url" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="AddedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Post" Relationship="Self.FK_Post_Image_Post" FromRole="Post_Image" ToRole="Post" />
+  </EntityType>
+  <EntityType Name="Post_Report">
+    <Key>
+      <PropertyRef Name="Post_Report_ID" />
+    </Key>
+    <Property Name="Post_Report_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Post_ID" Type="Int32" Nullable="false" />
+    <Property Name="Reason" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Report_Time" Type="DateTime" Precision="3" />
+    <Property Name="Reporter" Type="Int32" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Post_Report_Customer" FromRole="Post_Report" ToRole="Customer" />
+    <NavigationProperty Name="Post" Relationship="Self.FK_Post_Report_Post" FromRole="Post_Report" ToRole="Post" />
+  </EntityType>
+  <EntityType Name="Post_Status">
+    <Key>
+      <PropertyRef Name="Post_Status_ID" />
+    </Key>
+    <Property Name="Post_Status_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Post_ID" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="Censor" Type="Int32" />
+    <Property Name="CensorshipTime" Type="DateTime" Precision="3" />
+    <Property Name="Reason" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Post_Status_Employee" FromRole="Post_Status" ToRole="Employee" />
+    <NavigationProperty Name="Post" Relationship="Self.FK_Post_Status_Post" FromRole="Post_Status" ToRole="Post" />
+    <NavigationProperty Name="Status1" Relationship="Self.FK_Post_Status_Status" FromRole="Post_Status" ToRole="Status" />
+  </EntityType>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="Project_ID" />
+    </Key>
+    <Property Name="Project_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Location" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Protential" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Posts" Relationship="Self.FK_Post_Project" FromRole="Project" ToRole="Post" />
+  </EntityType>
+  <EntityType Name="RealEstateType">
+    <Key>
+      <PropertyRef Name="RealEstateType_ID" />
+    </Key>
+    <Property Name="RealEstateType_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Posts" Relationship="Self.FK_Post_RealEstaleType" FromRole="RealEstateType" ToRole="Post" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="Status_ID" />
+    </Key>
+    <Property Name="Status_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Status_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Post_Status" Relationship="Self.FK_Post_Status_Status" FromRole="Status" ToRole="Post_Status" />
+  </EntityType>
+  <EntityType Name="Type1">
+    <Key>
+      <PropertyRef Name="PostType_ID" />
+    </Key>
+    <Property Name="PostType_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Posts" Relationship="Self.FK_Post_PostType" FromRole="Type1" ToRole="Post" />
+  </EntityType>
+  <Association Name="FK_AccountLog_Account">
+    <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+    <End Role="AccountLog" Type="Self.AccountLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="Account_ID" />
+      </Principal>
+      <Dependent Role="AccountLog">
+        <PropertyRef Name="Account_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customer_Account">
+    <End Role="Account" Type="Self.Account" Multiplicity="1" />
+    <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="Account_ID" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="Account_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Account">
+    <End Role="Account" Type="Self.Account" Multiplicity="1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="Account_ID" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="Account_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Role_Account_Account">
+    <End Role="Account" Type="Self.Account" Multiplicity="1" />
+    <End Role="Role_Account" Type="Self.Role_Account" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="Account_ID" />
+      </Principal>
+      <Dependent Role="Role_Account">
+        <PropertyRef Name="Account_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Permission_Role_Permission">
+    <End Role="Permission" Type="Self.Permission" Multiplicity="1" />
+    <End Role="Permission_Role" Type="Self.Permission_Role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Permission">
+        <PropertyRef Name="Permission_ID" />
+      </Principal>
+      <Dependent Role="Permission_Role">
+        <PropertyRef Name="Permission_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Permission_Role_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="Permission_Role" Type="Self.Permission_Role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Role_ID" />
+      </Principal>
+      <Dependent Role="Permission_Role">
+        <PropertyRef Name="Role_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Role_Account_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="Role_Account" Type="Self.Role_Account" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Role_ID" />
+      </Principal>
+      <Dependent Role="Role_Account">
+        <PropertyRef Name="Role_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Block_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Block" Type="Self.Block" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Customer_ID" />
+      </Principal>
+      <Dependent Role="Block">
+        <PropertyRef Name="Cus_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Block_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Block" Type="Self.Block" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Employee_ID" />
+      </Principal>
+      <Dependent Role="Block">
+        <PropertyRef Name="Emp_Block" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customer_Report_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Customer_Report" Type="Self.Customer_Report" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Customer_ID" />
+      </Principal>
+      <Dependent Role="Customer_Report">
+        <PropertyRef Name="Customer_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customer_Report_Customer1">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Customer_Report" Type="Self.Customer_Report" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Customer_ID" />
+      </Principal>
+      <Dependent Role="Customer_Report">
+        <PropertyRef Name="Reporter" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customer_Type">
+    <End Role="Type" Type="Self.Type" Multiplicity="0..1" />
+    <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Type">
+        <PropertyRef Name="Type_ID" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="Customer_Type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Interested_Post_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Interested_Post" Type="Self.Interested_Post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Customer_ID" />
+      </Principal>
+      <Dependent Role="Interested_Post">
+        <PropertyRef Name="Customer_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PhoneNumber_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="PhoneNumber" Type="Self.PhoneNumber" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Customer_ID" />
+      </Principal>
+      <Dependent Role="PhoneNumber">
+        <PropertyRef Name="Customer_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Post_Customer_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Post_Customer" Type="Self.Post_Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Customer_ID" />
+      </Principal>
+      <Dependent Role="Post_Customer">
+        <PropertyRef Name="Customer_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Post_Report_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Post_Report" Type="Self.Post_Report" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Customer_ID" />
+      </Principal>
+      <Dependent Role="Post_Report">
+        <PropertyRef Name="Reporter" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Promotion_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Promotion" Type="Self.Promotion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Customer_ID" />
+      </Principal>
+      <Dependent Role="Promotion">
+        <PropertyRef Name="Creator" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Interested_Post_Post">
+    <End Role="Post" Type="Self.Post" Multiplicity="1" />
+    <End Role="Interested_Post" Type="Self.Interested_Post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="Post_ID" />
+      </Principal>
+      <Dependent Role="Interested_Post">
+        <PropertyRef Name="Post_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Post_Customer_Post">
+    <End Role="Post" Type="Self.Post" Multiplicity="1" />
+    <End Role="Post_Customer" Type="Self.Post_Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="Post_ID" />
+      </Principal>
+      <Dependent Role="Post_Customer">
+        <PropertyRef Name="Post_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Promotion_Detail_Promotion">
+    <End Role="Promotion" Type="Self.Promotion" Multiplicity="1" />
+    <End Role="Promotion_Detail" Type="Self.Promotion_Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Promotion">
+        <PropertyRef Name="Promotion_ID" />
+      </Principal>
+      <Dependent Role="Promotion_Detail">
+        <PropertyRef Name="Promotion_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Promotion_Detail_Post">
+    <End Role="Post" Type="Self.Post" Multiplicity="1" />
+    <End Role="Promotion_Detail" Type="Self.Promotion_Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="Post_ID" />
+      </Principal>
+      <Dependent Role="Promotion_Detail">
+        <PropertyRef Name="Post_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Block_Employee1">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Block1" Type="Self.Block1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Employee_ID" />
+      </Principal>
+      <Dependent Role="Block1">
+        <PropertyRef Name="Emp_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Employee1" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Employee_ID" />
+      </Principal>
+      <Dependent Role="Employee1">
+        <PropertyRef Name="Manager_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Post_Status_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Post_Status" Type="Self.Post_Status" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Employee_ID" />
+      </Principal>
+      <Dependent Role="Post_Status">
+        <PropertyRef Name="Censor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Quit_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Quit" Type="Self.Quit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Employee_ID" />
+      </Principal>
+      <Dependent Role="Quit">
+        <PropertyRef Name="Emp_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Detail_Post">
+    <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
+    <End Role="Detail" Type="Self.Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="Post_ID" />
+      </Principal>
+      <Dependent Role="Detail">
+        <PropertyRef Name="Post_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Post_Image_Post">
+    <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
+    <End Role="Post_Image" Type="Self.Post_Image" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="Post_ID" />
+      </Principal>
+      <Dependent Role="Post_Image">
+        <PropertyRef Name="Post_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Post_PostType">
+    <End Role="Type1" Type="Self.Type1" Multiplicity="1" />
+    <End Role="Post" Type="Self.Post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Type1">
+        <PropertyRef Name="PostType_ID" />
+      </Principal>
+      <Dependent Role="Post">
+        <PropertyRef Name="PostType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Post_Project">
+    <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+    <End Role="Post" Type="Self.Post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="Project_ID" />
+      </Principal>
+      <Dependent Role="Post">
+        <PropertyRef Name="Project" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Post_RealEstaleType">
+    <End Role="RealEstateType" Type="Self.RealEstateType" Multiplicity="1" />
+    <End Role="Post" Type="Self.Post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RealEstateType">
+        <PropertyRef Name="RealEstateType_ID" />
+      </Principal>
+      <Dependent Role="Post">
+        <PropertyRef Name="RealEstaleType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Post_Report_Post">
+    <End Role="Post" Type="Self.Post" Multiplicity="1" />
+    <End Role="Post_Report" Type="Self.Post_Report" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="Post_ID" />
+      </Principal>
+      <Dependent Role="Post_Report">
+        <PropertyRef Name="Post_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Post_Status_Post">
+    <End Role="Post" Type="Self.Post" Multiplicity="1" />
+    <End Role="Post_Status" Type="Self.Post_Status" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="Post_ID" />
+      </Principal>
+      <Dependent Role="Post_Status">
+        <PropertyRef Name="Post_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Post_Status_Status">
+    <End Role="Status" Type="Self.Status" Multiplicity="1" />
+    <End Role="Post_Status" Type="Self.Post_Status" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="Status_ID" />
+      </Principal>
+      <Dependent Role="Post_Status">
+        <PropertyRef Name="Status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RealEstateWebsiteEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Accounts" EntityType="Self.Account" />
+    <EntitySet Name="AccountLogs" EntityType="Self.AccountLog" />
+    <EntitySet Name="Permissions" EntityType="Self.Permission" />
+    <EntitySet Name="Permission_Role" EntityType="Self.Permission_Role" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="Role_Account" EntityType="Self.Role_Account" />
+    <EntitySet Name="Blocks" EntityType="Self.Block" />
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="Customer_Report" EntityType="Self.Customer_Report" />
+    <EntitySet Name="Interested_Post" EntityType="Self.Interested_Post" />
+    <EntitySet Name="PhoneNumbers" EntityType="Self.PhoneNumber" />
+    <EntitySet Name="Post_Customer" EntityType="Self.Post_Customer" />
+    <EntitySet Name="Promotions" EntityType="Self.Promotion" />
+    <EntitySet Name="Promotion_Detail" EntityType="Self.Promotion_Detail" />
+    <EntitySet Name="Types" EntityType="Self.Type" />
+    <EntitySet Name="DatabaseLogs" EntityType="Self.DatabaseLog" />
+    <EntitySet Name="ErrorLogs" EntityType="Self.ErrorLog" />
+    <EntitySet Name="Block1" EntityType="Self.Block1" />
+    <EntitySet Name="Employees" EntityType="Self.Employee" />
+    <EntitySet Name="Quits" EntityType="Self.Quit" />
+    <EntitySet Name="Details" EntityType="Self.Detail" />
+    <EntitySet Name="Posts" EntityType="Self.Post" />
+    <EntitySet Name="Post_Image" EntityType="Self.Post_Image" />
+    <EntitySet Name="Post_Report" EntityType="Self.Post_Report" />
+    <EntitySet Name="Post_Status" EntityType="Self.Post_Status" />
+    <EntitySet Name="Projects" EntityType="Self.Project" />
+    <EntitySet Name="RealEstateTypes" EntityType="Self.RealEstateType" />
+    <EntitySet Name="Status" EntityType="Self.Status" />
+    <EntitySet Name="Type1" EntityType="Self.Type1" />
+    <AssociationSet Name="FK_AccountLog_Account" Association="Self.FK_AccountLog_Account">
+      <End Role="Account" EntitySet="Accounts" />
+      <End Role="AccountLog" EntitySet="AccountLogs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customer_Account" Association="Self.FK_Customer_Account">
+      <End Role="Account" EntitySet="Accounts" />
+      <End Role="Customer" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Account" Association="Self.FK_Employee_Account">
+      <End Role="Account" EntitySet="Accounts" />
+      <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Role_Account_Account" Association="Self.FK_Role_Account_Account">
+      <End Role="Account" EntitySet="Accounts" />
+      <End Role="Role_Account" EntitySet="Role_Account" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Permission_Role_Permission" Association="Self.FK_Permission_Role_Permission">
+      <End Role="Permission" EntitySet="Permissions" />
+      <End Role="Permission_Role" EntitySet="Permission_Role" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Permission_Role_Role" Association="Self.FK_Permission_Role_Role">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="Permission_Role" EntitySet="Permission_Role" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Role_Account_Role" Association="Self.FK_Role_Account_Role">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="Role_Account" EntitySet="Role_Account" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Block_Customer" Association="Self.FK_Block_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Block" EntitySet="Blocks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Block_Employee" Association="Self.FK_Block_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Block" EntitySet="Blocks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customer_Report_Customer" Association="Self.FK_Customer_Report_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Customer_Report" EntitySet="Customer_Report" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customer_Report_Customer1" Association="Self.FK_Customer_Report_Customer1">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Customer_Report" EntitySet="Customer_Report" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customer_Type" Association="Self.FK_Customer_Type">
+      <End Role="Type" EntitySet="Types" />
+      <End Role="Customer" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Interested_Post_Customer" Association="Self.FK_Interested_Post_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Interested_Post" EntitySet="Interested_Post" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PhoneNumber_Customer" Association="Self.FK_PhoneNumber_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="PhoneNumber" EntitySet="PhoneNumbers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Post_Customer_Customer" Association="Self.FK_Post_Customer_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Post_Customer" EntitySet="Post_Customer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Post_Report_Customer" Association="Self.FK_Post_Report_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Post_Report" EntitySet="Post_Report" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Promotion_Customer" Association="Self.FK_Promotion_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Promotion" EntitySet="Promotions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Interested_Post_Post" Association="Self.FK_Interested_Post_Post">
+      <End Role="Post" EntitySet="Posts" />
+      <End Role="Interested_Post" EntitySet="Interested_Post" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Post_Customer_Post" Association="Self.FK_Post_Customer_Post">
+      <End Role="Post" EntitySet="Posts" />
+      <End Role="Post_Customer" EntitySet="Post_Customer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Promotion_Detail_Promotion" Association="Self.FK_Promotion_Detail_Promotion">
+      <End Role="Promotion" EntitySet="Promotions" />
+      <End Role="Promotion_Detail" EntitySet="Promotion_Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Promotion_Detail_Post" Association="Self.FK_Promotion_Detail_Post">
+      <End Role="Post" EntitySet="Posts" />
+      <End Role="Promotion_Detail" EntitySet="Promotion_Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Block_Employee1" Association="Self.FK_Block_Employee1">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Block1" EntitySet="Block1" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Employee" Association="Self.FK_Employee_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Employee1" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Post_Status_Employee" Association="Self.FK_Post_Status_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Post_Status" EntitySet="Post_Status" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Quit_Employee" Association="Self.FK_Quit_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Quit" EntitySet="Quits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Detail_Post" Association="Self.FK_Detail_Post">
+      <End Role="Post" EntitySet="Posts" />
+      <End Role="Detail" EntitySet="Details" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Post_Image_Post" Association="Self.FK_Post_Image_Post">
+      <End Role="Post" EntitySet="Posts" />
+      <End Role="Post_Image" EntitySet="Post_Image" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Post_PostType" Association="Self.FK_Post_PostType">
+      <End Role="Type1" EntitySet="Type1" />
+      <End Role="Post" EntitySet="Posts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Post_Project" Association="Self.FK_Post_Project">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="Post" EntitySet="Posts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Post_RealEstaleType" Association="Self.FK_Post_RealEstaleType">
+      <End Role="RealEstateType" EntitySet="RealEstateTypes" />
+      <End Role="Post" EntitySet="Posts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Post_Report_Post" Association="Self.FK_Post_Report_Post">
+      <End Role="Post" EntitySet="Posts" />
+      <End Role="Post_Report" EntitySet="Post_Report" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Post_Status_Post" Association="Self.FK_Post_Status_Post">
+      <End Role="Post" EntitySet="Posts" />
+      <End Role="Post_Status" EntitySet="Post_Status" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Post_Status_Status" Association="Self.FK_Post_Status_Status">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Post_Status" EntitySet="Post_Status" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

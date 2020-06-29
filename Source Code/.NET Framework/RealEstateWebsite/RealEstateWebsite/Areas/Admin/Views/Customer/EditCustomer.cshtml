@@ -1,0 +1,113 @@
+﻿@model RealEstateWebsite.Models.Customer
+
+@{
+    ViewBag.Title = "Edit Customer | Real Estate System";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Customer</h2>
+<div class="row">
+    <div class="col-lg-12">
+        @*<h3 class="page-header">
+                <i class="fa fa-laptop"></i> Search Employees
+            </h3>*@
+        <ol class="breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/Admin/Home/Index">Home</a>
+            </li>
+            <li>
+                @Html.ActionLink("View Customers", "Viewcustomer", "Customer")
+            </li>
+            <li>
+                <i class="fa fa-laptop"></i>Edit Customer
+            </li>
+        </ol>
+    </div>
+</div>
+@using (Html.BeginForm("SaveCustomer", "Customer", FormMethod.Post, htmlAttributes: new { enctype = "multipart/form-data", @class = "dropzone dropzone-custom needsclick add-professors dz-clickable", @id = "demo1-upload", @novalidate = "novalidate" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Customer</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Customer_ID)
+        <div class="col-sm-10 form-group-md">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Firstname, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Firstname, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Firstname, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Avatar_URL, htmlAttributes: new { @class = "control-label col-md-2" })
+                @*<div class="col-md-10">
+                        @Html.EditorFor(model => model.Avatar_URL, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Avatar_URL, "", new { @class = "text-danger" })
+                    </div>*@
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Avatar_URL, new { htmlAttributes = new { @class = "form-control" } })
+                    <label for="file">Upload Image:</label> <input type="file" name="image" multiple="multiple" accept="image/*" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Type", htmlAttributes: new { @class = "control-label col-md-2" })
+                @try
+                {
+                    <div class="col-md-10">
+                        @Html.DropDownList("TypeAcc", new SelectList(ViewBag.roleList), new { @class = "form-control" })
+                    </div>
+                }
+                catch { }
+
+            </div>
+
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.PhoneNumbers, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.PhoneNumbers.FirstOrDefault().PhoneNumber1, new { htmlAttributes = new { @class = "form-control"} })
+                    </div>
+                </div>*@
+            <div class="form-group">
+                <label for="phonenum" class="control-label col-lg-2">Phone Numbers (fill if changes)</label>
+                <div class="col-lg-10">
+                    @Html.TextBox("phoneNumber", null, htmlAttributes: new { @name = "mobileno", @class = "form-control" })
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+            <a href="@Url.Action("Viewcustomer", "Customer")" class="btn btn-button-primary">Back to View Customer</a>
+        </div>
+
+    </div>
+
+}

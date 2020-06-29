@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "Real Estale Website";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+
+<div id="demo-1" data-zs-src='["/Images/User/2.jpg", "/Images/User/1.jpg", "/Images/User/3.jpg","/Images/User/4.jpg"]' data-zs-overlay="dots">
+    <div class="demo-inner-content">
+        <!--/banner-info-->
+        <div class="baner-info">
+            <h3>Your <span>Edge</span> in <span>Real</span> Home</h3>
+            <h4>Build Your Dream Villa</h4>
+            <span><img src="~/Images/User/logo2.png" alt=""></span>
+        </div>
+        <!--/banner-ingo-->
+    </div>
+</div>
+
+
+<div class="modal ab fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog sign" role="document">
+        <div class="modal-content about">
+            <div class="modal-header one">
+                <button type="button" class="close sg" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="discount one">
+                    <h3>A Few Words about Us</h3>
+
+                </div>
+            </div>
+            <div class="modal-body about">
+                <img src="~/Images/User/v5.jpg" alt="w3ls" class="img-responsive">
+                <h4>Lorem ipsum Nam libero tempore</h4>
+                <p>
+                    Lorem ipsum Nam libero tempore cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod
+                    maxime placeat facere.Lorem Ipsum has been the industry's standard dummy text ever since.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //pop-->
+<!--/price-section-->
+<div class="price-section">
+    <div class="container" style="display:flex">
+        <div class="col-md-6 price" style="padding-top:10%">
+            <div class="reservation">
+                <div class="keywords">
+                    @using (Html.BeginForm("ResultSearchPartial", "Search", FormMethod.Post))
+                    {
+                        <form method="post">
+                            <input type="text" name="Key" placeholder="Key Words">
+                            <input type="text" name="PriceNho" placeholder="Giá nhỏ nhất">
+                            <input type="text" name="PriceLon" placeholder="Giá lớn nhất">
+                            <button class="btn btn-primary btn-lg btn-block" type="submit">Search</button>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+        @Html.Action("PostThreePartial","Post")
+        <div class="clearfix"> </div>
+    </div>
+</div>
+
+<!--//price-section-->
+
+        @Html.Action("ProjectPartial","Post")
+
+<!--//featured-projects-->
+
+<section class="feature-section spad">
+    @*Chèn postpartial*@
+    <div class="container">
+        @Html.Action("PostPartial", "Post")
+    </div>
+</section>

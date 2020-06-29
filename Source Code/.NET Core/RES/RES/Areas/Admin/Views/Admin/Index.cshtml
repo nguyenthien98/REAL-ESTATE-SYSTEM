@@ -1,0 +1,55 @@
+﻿@model IEnumerable<RES.Data.DBModels.Admin>
+
+@{
+    ViewData["Title"] = "Quản lý admin | RES";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    var notice = TempData["Notice"];
+
+    if (notice != null)
+    {
+        ViewData["Notice"] = notice;
+    }
+}
+
+<div class="animated fadeIn">
+    <div class="row">
+
+        <div class="col-md-12">
+            <partial name="~/Areas/Identity/Pages/Account/Manage/_StatusMessage.cshtml" model="@(ViewData["Notice"] == null ? null : ViewData["Notice"].ToString())" />
+            <div class="card">
+                <div class="card-header">
+                    <form asp-action="Create" method="get">
+                        <input type="submit" class="btn-info" value="Thêm mới" />
+                    </form>
+                </div>
+                <div class="card-body">
+                    <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+
+                                    <td>@(item.UserName)</td>
+                                    <td style="display: inline-flex">
+                                        <form asp-action="Delete" asp-route-id="@item.AdminId"
+                                              method="post" onsubmit="return confirm('Bạn có chắc chắn muốn xóa tài khoản này?');" style="margin-right: 3px">
+                                            <input type="submit" class="btn-danger" value="Xóa" />
+                                        </form>
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

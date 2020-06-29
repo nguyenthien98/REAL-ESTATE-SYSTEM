@@ -1,0 +1,37 @@
+﻿@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Page top section -->
+<section class="page-top-section set-bg" data-setbg="../../../../img/page-top-bg.jpg">
+    <div class="container text-white">
+        <h2>THÔNG TIN TÀI KHOẢN</h2>
+    </div>
+</section>
+<!--  Page top end -->
+<!-- Breadcrumb -->
+<div class="site-breadcrumb">
+    <div class="container">
+        <a href="/"><i class="fa fa-home"></i>Trang chủ</a>
+        <span><i class="fa fa-angle-right"></i>Quản lý tài khoản</span>
+    </div>
+</div>
+
+<section class="page-section categories-page">
+    <div class="container">
+        <div>
+            <div class="row">
+                <div class="col-md-3">
+                    <partial name="_ManageNav" />
+                </div>
+                <div class="col-md-9">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+
+        @section Scripts {
+            @RenderSection("Scripts", required: false)
+        }
+    </div>
+</section>

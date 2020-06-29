@@ -1,0 +1,56 @@
+﻿@page
+@model LoginModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Đăng nhập - Bất động sản Miền Trung";
+}
+
+<!-- Page top section -->
+<section class="page-top-section set-bg" data-setbg="../../../../img/page-top-bg.jpg">
+    <div class="container text-white">
+        <h2>ĐĂNG NHẬP</h2>
+    </div>
+</section>
+<!--  Page top end -->
+<!-- Page -->
+<section class="page-section">
+    <div class="container">
+        <div class="row mt-5">
+            <form id="account" method="post" class="m-auto" style="width: 50%">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="text-danger text-center">@ViewBag.Error</div>
+                <div class="form-group" data-validate="Enter username">
+                    <label>Email</label>
+                    <input asp-for="Input.Email" type="email" class="form-control" placeholder="Email" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    <span class="focus-input100" data-placeholder="&#xf207;"></span>
+                </div>
+
+                <div class="form-group" data-validate="Enter password">
+                    <label asp-for="Input.Password">Mật khẩu</label>
+                    <input asp-for="Input.Password" class="form-control" type="password" placeholder="Password" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    <span class="focus-input100" data-placeholder="&#xf191;"></span>
+                </div>
+
+                <div class="contact100-form-checkbox">
+                    <input asp-for="Input.RememberMe" class="input-checkbox100" id="ckb1" type="checkbox" />
+                    <label asp-for="Input.RememberMe" class="label-checkbox100" for="ckb1">
+                        Ghi nhớ đăng nhập
+                    </label>
+                </div>
+
+                <div class="form-group row m-auto pb-5">
+                    <input class="btn btn-primary m-auto" type="submit" value="Đăng nhập" />
+                </div>
+                <div class="text-center p-t-90 pt-3">
+                    Bạn chưa có tài khoản?
+                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-blue">Đăng ký</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+

@@ -1,0 +1,286 @@
+﻿@model RES.Data.DBModels.Post
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<link rel="stylesheet" href="~/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/font-awesome.min.css" />
+<!-- Page top section -->
+<section class="page-top-section set-bg" data-setbg="../../../../img/page-top-bg.jpg">
+    <div class="container text-white">
+        <h2>TẠO TIN MỚI</h2>
+    </div>
+</section>
+<!--  Page top end -->
+<!-- Breadcrumb -->
+<div class="site-breadcrumb">
+    <div class="container">
+        <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i>Home</a>
+        <span><i class="fa fa-angle-right"></i>Tạo bài đăng mới</span>
+    </div>
+</div>
+
+<!-- Page -->
+<section class="page-section">
+    <div class="container">
+
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <input asp-for="Tittle" class="form-control" placeholder="Tiêu đề" required />
+                        <span asp-validation-for="Tittle" class="text-danger"></span>
+                    </div>  
+                    <div class="row mt-3">
+                        <div class="form-group col-lg-6 col-sm-12">
+                            <div class="input-group">
+                                <input asp-for="Price" id="inputPrice" class="form-control" placeholder="Giá" />
+                                <div class="input-group-btn"><span class="btn btn-primary">VNĐ</span></div>
+                            </div>
+                            <span id="txtPrice" class="text-black"></span>
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-lg-6 col-sm-12">
+                            <div class="input-group">
+                                <input asp-for="Area" placeholder="Diện tích" class="form-control" required>
+                                <div class="input-group-btn"><span class="btn btn-primary">m&sup2;</span></div>
+                            </div>
+                            <span asp-validation-for="Area" class="text-danger" type="number" step="0.01"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-lg-6 col-sm-12">
+                            <select id="province" name="province" class="form-control">
+                                <option selected disabled>Chọn tỉnh thành</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-lg-6 col-sm-12">
+                            <select id="district" name="district" class="form-control">
+                                <option selected disabled>Chọn quận huyện</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-lg-6 col-sm-12">
+                            <select id="ward" name="ward" class="form-control">
+                                <option selected disabled>Chọn phường xã</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-lg-6 col-sm-12">
+                            <input asp-for="Location" class="form-control" placeholder="Chi tiết vị trí" required />
+                            <span asp-validation-for="Location" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea asp-for="Description" class="form-control" rows="3" placeholder="Mô tả" required></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <select asp-for="Project" class="form-control" asp-items="ViewBag.Project">
+                            <option value="none" selected>Dự án</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-6 col-sm-12">
+                            <select asp-for="PostType" class="form-control" asp-items="ViewBag.PostType"></select>
+                        </div>
+                        <div class="form-group col-lg-6 col-sm-12">
+                            <select asp-for="RealEstaleType" id="typeOfRealEstate" class="form-control" asp-items="ViewBag.RealEstaleType"></select>
+                        </div>
+                    </div>
+                    <div id="detailsHouse" class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pad-l0 form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon mr-3"><span class="fa fa-bed" aria-hidden="true"></span></span>
+                                <select name="bedroom" class="form-control">
+                                    <option value="none" selected disabled>Số phòng ngủ</option>
+                                    <option value="1">1 phòng</option>
+                                    <option value="2">2 phòng</option>
+                                    <option value="3">3 phòng</option>
+                                    <option value="4">4 phòng</option>
+                                    <option value="5">5 phòng</option>
+                                    <option value="6">6 phòng</option>
+                                    <option value="7">7 phòng</option>
+                                    <option value="8">8 phòng</option>
+                                    <option value="9">9 phòng</option>
+                                    <option value="10">10 phòng</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pad-r0 form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon mr-3"><span class="fas fa-bath" aria-hidden="true"></span></span>
+                                <select name="bathroom" class="form-control">
+                                    <option value="none" selected disabled>Số phòng vệ sinh</option>
+                                    <option value="1">1 phòng</option>
+                                    <option value="2">2 phòng</option>
+                                    <option value="3">3 phòng</option>
+                                    <option value="4">4 phòng</option>
+                                    <option value="5">5 phòng</option>
+                                    <option value="6">6 phòng</option>
+                                    <option value="7">7 phòng</option>
+                                    <option value="8">8 phòng</option>
+                                    <option value="9">9 phòng</option>
+                                    <option value="10">10 phòng</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pad-l0 form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon mr-3"><span class="fas fa-building" aria-hidden="true"></span></span>
+                                <select name="floor" class="form-control">
+                                    <option value="none" selected="" disabled="">Số lầu</option>
+                                    <option value="1">1 lầu</option>
+                                    <option value="2">2 lầu</option>
+                                    <option value="3">3 lầu</option>
+                                    <option value="4">4 lầu</option>
+                                    <option value="5">5 lầu</option>
+                                    <option value="6">6 lầu</option>
+                                    <option value="7">7 lầu</option>
+                                    <option value="8">8 lầu</option>
+                                    <option value="9">9 lầu</option>
+                                    <option value="10">10 lầu</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pad-r0 form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon mr-3"><span class="fas fa-road" aria-hidden="true"></span></span>
+                                <select name="alley" class="form-control">
+                                    <option value="true">Trong hẻm</option>
+                                    <option value="false">Mặt đường</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pad-r0  pad-l0 form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon mr-3"><span class="fas fa-compass" aria-hidden="true"></span></span>
+                                <select name="direction" class="form-control" asp-items="ViewBag.Direction">
+                                    <option value="none" selected disabled>Hướng nhà</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                        <input type="file" name="files" accept="image/*" multiple required>
+                        <span class="text-danger field-validation-valid" data-valmsg-for="files" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row m-auto">
+                <input type="submit" value="Tạo bài đăng" class="btn btn-primary m-auto" />
+            </div>
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/uploadmultifiles.js"></script>
+    <script>
+        $('#typeOfRealEstate').change(function () {
+            var item = $(this).val();
+            if (item === "1") {
+                $("#detailsHouse").show();
+            } else {
+                $("#detailsHouse").hide();
+            }
+        });
+
+        $("#inputPrice").keyup(function () {
+            var input = $("#inputPrice").val();
+
+            if (input == null || input == "") {
+                $("#txtPrice").text("");
+            } else {
+
+                $.ajax({
+                    url: "/dashboard/convert-money?input=" + input,
+                    method: "get",
+                    success: function (result) {
+                        $("#txtPrice").text(result);
+                    },
+                    error: function (result) {
+                        $("#txtPrice").text("Lỗi: không thể định dạng kiểu dữ liệu tiền tệ này");
+                    }
+                });
+            }
+
+        });
+        $.ajax({
+            url: "https://dc.tintoc.net/app/api-customer/public/provinces",
+            method: 'GET',
+            data: { "size": 64 },
+            dataType: 'json',
+            success: function (data) {
+                data.forEach(function (item) {
+                    var o = new Option(item.name, item.name);
+                    $(o).attr("data-id", item.id);
+                    $(o).html(item.name);
+                    $("#province").append(o);
+                });
+            }, error: function () {
+            }
+        });
+
+        $('#province').change(function () {
+            var item = $(this).find(':selected').data('id');
+            $('#district').empty();
+            $('#ward').empty();
+            $.ajax({
+                url: "https://dc.tintoc.net/app/api-customer/public/districts",
+                method: 'GET',
+                data: { "size": 100, "provinceId.equals": item },
+                dataType: 'json',
+                success: function (data) {
+                    data.forEach(function (item) {
+                        var o = new Option(item.name, item.name);
+                        $(o).attr("data-id", item.id);
+                        $(o).html(item.name);
+                        $("#district").append(o);
+                    });
+                    $.ajax({
+                        url: "https://dc.tintoc.net/app/api-customer/public/wards",
+                        method: 'GET',
+                        data: { "size": 100, "districtId.equals": data[0].id },
+                        dataType: 'json',
+                        success: function (data2) {
+                            data2.forEach(function (item) {
+                                var o = new Option(item.name, item.name);
+                                $(o).html(item.name);
+                                $("#ward").append(o);
+                            });
+                        }, error: function () {
+                        }
+                    });
+                }, error: function () {
+                }
+            });
+        });
+
+        $('#district').change(function () {
+            var item = $(this).find(':selected').data('id');
+            $('#ward').empty();
+            $.ajax({
+                url: "https://dc.tintoc.net/app/api-customer/public/wards",
+                method: 'GET',
+                data: { "size": 100, "districtId.equals": item },
+                dataType: 'json',
+                success: function (data) {
+                    data.forEach(function (item) {
+                        var o = new Option(item.name, item.name);
+                        $(o).html(item.name);
+                        $("#ward").append(o);
+                    });
+                }, error: function () {
+                }
+            });
+        });
+
+    </script>
+}
